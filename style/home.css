@@ -1,0 +1,118 @@
+.categories {
+    background: #379bf922;
+    padding: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 2px solid #25252d;
+}
+
+.categories .each-category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.categories .category-name {
+    max-width: 80px;
+}
+
+.categories .category-name p {
+    margin: 1em;
+    font-size: 0.8em;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.categories .each-category img {
+    border-radius: 50%;
+    height: 50px;
+}
+
+.ad-banner {
+    display: flex;
+    justify-content: center;
+    padding: 20px 5%;
+}
+
+.ad-banner img {
+    width: 100%;
+}
+
+.slideshow-container {
+    margin: 20px 5%;
+}
+
+.slideshow-container .mySlides img {
+    width: 100%;
+    height: auto;
+}
+
+.top-products-container,
+.new-arrivals-container {
+    background: #ebebeb;
+    padding: 20px 0px 20px 20px;
+    position: relative;
+    font-weight: 200;
+    display: flex;
+    margin: 5%;
+    flex-direction: column;
+}
+
+.arrow-left,
+.na-arrow-left {
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 4rem;
+    font-size: 3em;
+    font-weight: 500;
+    cursor: pointer;
+    width: 3rem;
+    height: 4rem;
+    top: 45%;
+    left: 0rem;
+    z-index: 1;
+    background-color: rgb(240, 240, 240);
+}
+
+.arrow-right,
+.na-arrow-right {
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 4rem;
+    font-size: 3em;
+    font-weight: 500;
+    cursor: pointer;
+    width: 3rem;
+    height: 4rem;
+    top: 45%;
+    right: 0;
+    z-index: 1;
+    background-color: rgb(240, 240, 240);
+}
+
+.top-products-list,
+.new-arrivals-list {
+    display: flex;
+    max-width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.top-products-list .each-product,
+.new-arrivals-list .each-product {
+    margin: 15px;
+}
+
+@media (max-width: 700px) {
+    .categories {
+        overflow-x: scroll;
+        justify-content: flex-start;
+    }
+    .slideshow-container {
+        margin: 0 5%;
+    }
+}
