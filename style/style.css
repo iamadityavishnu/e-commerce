@@ -6,6 +6,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
+    background: #ebebeb;
 }
 
 header {
@@ -19,7 +20,7 @@ header {
 }
 
 header h1 {
-    font-weight: 300;
+    font-weight: 500;
 }
 
 header .brand-container,
@@ -35,11 +36,15 @@ header .account-options {
     line-height: 30px;
 }
 
+.brand-container .brand-logo img {
+    height: 70px;
+}
+
 .account-options a {
     text-decoration: none;
     color: #ebebeb;
     font-size: 1.2em;
-    font-weight: 400;
+    font-weight: 500;
     transition: 0.2s;
     padding: 10px;
 }
@@ -87,7 +92,7 @@ header .account-options {
 
 .search-bar .search-field {
     height: 40px;
-    border: 1px solid gray;
+    border: none;
 }
 input.search-field {
     width: 20vw;
@@ -166,5 +171,11 @@ footer {
     }
     #hamburger {
         display: block;
+    }
+    .brand-container .brand-logo img {
+        height: 50px;
+    }
+    .brand-container .brand-name h1 {
+        display: none;
     }
 }

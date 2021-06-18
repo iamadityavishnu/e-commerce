@@ -16,7 +16,7 @@
     <header>
         <div class="brand-container">
             <div class="brand-logo">
-                <img src="images/TIMES LOGO.jpg" alt="times international logo" height="70px">
+                <img src="images/TIMES LOGO.png" alt="times international logo">
             </div>
             <div class="brand-name">
                 <h1>Times <br> International</h1>
@@ -136,32 +136,131 @@
         <a class="arrow-left arrow"><</a>
         <a class="arrow-right arrow">></a>
         <div class="top-products-list">
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
-            <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=top" alt="">
+            <div class="each-product product-card">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -191,31 +290,130 @@
         <a class="na-arrow-right na-arrow">></a>
         <div class="new-arrivals-list">
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
             <div class="each-product">
-                <img src="https://dummyimage.com/200x280.png?text=new" alt="">
+                <img src="images/product-images/product-dummy.png" alt="">
+                <div class="product-info">
+                    <div class="product-title">
+                        <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
+                    </div>
+                    <div class="product-para">
+                        1 Kg
+                    </div>
+                    <div class="product-price">
+                        $ 5
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,9 +1,8 @@
 .categories {
-    background: #379bf922;
+    background: #fff;
     padding: 15px;
     display: flex;
     justify-content: space-evenly;
-    border-bottom: 2px solid #25252d;
 }
 
 .categories .each-category {
@@ -51,13 +50,18 @@
 
 .top-products-container,
 .new-arrivals-container {
-    background: #ebebeb;
-    padding: 20px 0px 20px 20px;
+    background: #fff;
+    padding: 20px 0px 40px 20px;
     position: relative;
     font-weight: 200;
     display: flex;
     margin: 5%;
     flex-direction: column;
+}
+
+.top-products-container .top-products-title h3,
+.new-arrivals-container .new-arrivals-title h3 {
+    color: #25252d;
 }
 
 .arrow-left,
@@ -72,9 +76,10 @@
     width: 3rem;
     height: 4rem;
     top: 45%;
-    left: 0rem;
+    left: 5px;
     z-index: 1;
-    background-color: rgb(240, 240, 240);
+    background-color: #fff;
+    color: #25252d;
 }
 
 .arrow-right,
@@ -89,9 +94,10 @@
     width: 3rem;
     height: 4rem;
     top: 45%;
-    right: 0;
+    right: 5px;
     z-index: 1;
-    background-color: rgb(240, 240, 240);
+    background-color: #fff;
+    color: #25252d;
 }
 
 .top-products-list,
@@ -104,7 +110,33 @@
 
 .top-products-list .each-product,
 .new-arrivals-list .each-product {
+    background: #fafafa;
+    border-radius: 10px;
     margin: 15px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.098);
+}
+
+.top-products-list .each-product img,
+.new-arrivals-list .each-product img {
+    width: 200px;
+    border-radius: 10px 10px 0px 0px;
+    height: 200px;
+}
+
+.top-products-list .each-product .product-info,
+.new-arrivals-list .each-product .product-info {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.top-products-list .each-product .product-info .product-title,
+.new-arrivals-list .each-product .product-info .product-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 @media (max-width: 700px) {
@@ -114,5 +146,15 @@
     }
     .slideshow-container {
         margin: 0 5%;
+    }
+    .top-products-list,
+    .new-arrivals-list {
+        overflow-x: scroll;
+    }
+    .arrow-right,
+    .na-arrow-right,
+    .arrow-left,
+    .na-arrow-left {
+        display: none;
     }
 }
