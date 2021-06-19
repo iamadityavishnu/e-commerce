@@ -108,6 +108,106 @@ button.search-field:hover {
     cursor: pointer;
 }
 
+/* HORIZONTAL LISTS BEGINS */
+
+.pdt-container-horizontal {
+    background: #fff;
+    padding: 20px 0px 40px 20px;
+    position: relative;
+    font-weight: 200;
+    display: flex;
+    margin: 5%;
+    flex-direction: column;
+}
+
+.pdt-container-horizontal .title-horizontal h3 {
+    color: #25252d;
+}
+
+.arrow-left,
+.na-arrow-left {
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 4rem;
+    font-size: 3em;
+    font-weight: 500;
+    cursor: pointer;
+    width: 3rem;
+    height: 4rem;
+    top: 45%;
+    left: 5px;
+    z-index: 1;
+    background-color: #cacaca;
+    color: #25252d;
+}
+
+.arrow-right,
+.na-arrow-right {
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 4rem;
+    font-size: 3em;
+    font-weight: 500;
+    cursor: pointer;
+    width: 3rem;
+    height: 4rem;
+    top: 45%;
+    right: 5px;
+    z-index: 1;
+    background-color: #cacaca;
+    color: #25252d;
+}
+
+.pdt-list-horizontal {
+    display: flex;
+    max-width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.pdt-list-horizontal .each-product {
+    background: #fafafa;
+    border-radius: 10px;
+    margin: 15px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.098);
+}
+
+.pdt-list-horizontal .each-product img {
+    width: 200px;
+    border-radius: 10px 10px 0px 0px;
+    height: 200px;
+}
+
+.pdt-list-horizontal .product-info {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.pdt-list-horizontal .product-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+@media (max-width: 700px) {
+    .pdt-list-horizontal {
+        overflow-x: scroll;
+    }
+    .arrow-right,
+    .na-arrow-right,
+    .arrow-left,
+    .na-arrow-left {
+        display: none;
+    }
+}
+
+/* HORIZONTAL LIST ENDS */
+
 footer {
     background: #25252d;
 }

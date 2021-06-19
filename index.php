@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO TAGS -->
+    <meta name="title" content="Times International ">
+    <meta name="description" content="Times International PTY LTD. Buy online a range of authentic food products from Times International. Delivery across mainland.">
+    <meta name="keywords" content="times international, daily delight, buy online">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="1 days">
+    <meta name="author" content="Times International ">
+    <!-- END OF SEO TAGS -->
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
@@ -129,13 +141,13 @@
         </div>
     </div>
 
-    <div class="top-products-container">
-        <div class="top-products-title">
+    <div class="pdt-container-horizontal">
+        <div class="title-horizontal">
             <h3>Top products</h3>
         </div>
         <a class="arrow-left arrow"><</a>
         <a class="arrow-right arrow">></a>
-        <div class="top-products-list">
+        <div class="pdt-list-horizontal top-products-list">
             <div class="each-product product-card">
                 <img src="images/product-images/product-dummy.png" alt="">
                 <div class="product-info">
@@ -282,13 +294,13 @@
         })
     </script>
 
-    <div class="new-arrivals-container">
-        <div class="new-arrivals-title">
+    <div class="pdt-container-horizontal">
+        <div class="title-horizontal">
             <h3>New arrivals</h3>
         </div>
         <a class="na-arrow-left na-arrow"><</a>
         <a class="na-arrow-right na-arrow">></a>
-        <div class="new-arrivals-list">
+        <div class="pdt-list-horizontal new-arrival-list">
             <div class="each-product">
                 <img src="images/product-images/product-dummy.png" alt="">
                 <div class="product-info">
@@ -419,7 +431,7 @@
     </div>
 
     <script>
-        var na_box = $(".new-arrivals-list"), x;
+        var na_box = $(".new-arrival-list"), x;
         $(".na-arrow").click(function() {
         if ($(this).hasClass("na-arrow-right")) {
             x = ((na_box.width() / 2)) + na_box.scrollLeft();
