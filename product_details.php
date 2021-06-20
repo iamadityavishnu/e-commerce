@@ -25,57 +25,9 @@
     <title>Times International | Home</title>
 </head>
 <body>
-    <header>
-        <div class="brand-container">
-            <div class="brand-logo">
-                <img src="images/TIMES LOGO.png" alt="times international logo">
-            </div>
-            <div class="brand-name">
-                <h1>Times <br> International</h1>
-            </div>
-        </div>
-
-        <div class="search-bar">
-            <div><input class="search-field type="text" placeholder="Search"></div>
-            <div><button class="search-field">&#x1F50D;</button></div>
-        </div>
-
-        <div class="account-options">
-            <div><a href="">My account</a></div>
-            <div><a href="">Cart 🛒</a></div>
-            <div class="dropdown">
-                <a class="drop-btn" href="">More</a>
-                <dropdown class="dropdown-content">
-                    <a href="">About us</a>
-                    <a href="">Legal</a>
-                    <a href="">Contact us</a>
-                </dropdown>
-            </div>
-            <div id="hamburger" onclick="toggleHam()">
-                <p>☰</p>
-                <dropdown class="ham-dropdown-content" id="dropdown">
-                    <a href="">About us</a>
-                    <a href="">Legal</a>
-                    <a href="">Contact us</a>
-                </dropdown>
-            </div>
-        </div>
-
-        <script>
-            function toggleHam(){
-                var dropd = document.getElementById("dropdown");
-                console.log("Click click!");
-                if (dropd.style.display == "flex"){
-                    console.log("None aa!");
-                    dropd.style.display = "none";
-                }else{
-                    dropd.style.display = "flex";
-                    console.log("block aa");
-                }
-            }
-        </script>
-
-    </header>
+    <?php
+    include("includes/header.php");
+    ?>
 
     <main>
         <div class="container">
@@ -298,56 +250,9 @@
         </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h4>Your account</h4>
-                <div class="footer-column-list">
-                    <ul>
-                        <li>Log in</li>
-                        <li>Sign-up</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h4>Quick links</h4>
-                <div class="footer-column-list">
-                    <ul>
-                        <li>Categories</li>
-                        <li>My account</li>
-                        <li>Cart</li>
-                        <li>Privacy policy</li>
-                        <li>Delivery policy</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h4>Contact</h4>
-                <div class="footer-column-list">
-                    <ul>
-                        <li>TIMES INTERNATIONAL PTY LTD</li>
-                        <li>Australia</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h4>Trading hours</h4>
-                <div class="footer-column-list">
-                    <ul>
-                        <li>Monday to Saturday: 8.30am to 5.30pm</li>
-                        <li>Closed Sundays and Public Holidays</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-credits">
-            <div>
-                <p>Copyright &copy; 2021 Times International</p>
-            </div>
-            <div class="payment-stripe">
-                <img src="" alt="">
-            </div>
-        </div>
-    </footer>
+    <?php
+    include("includes/footer.php");
+    ?>
+
 </body>
 </html>
