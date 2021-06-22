@@ -1,3 +1,7 @@
+<?php
+include('includes/dbconnection.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -44,48 +48,32 @@
         ?>
 
         <div class="categories">
-            <div class="each-category">
-                <img src="images\categories\cereals.png" alt="" />
-                <div class="category-name">
-                    <p>Cereals</p>
+            
+            <?php
+
+            $sql = "SELECT * FROM categories LIMIT 6";
+            $stmt = $conn->prepare($sql);
+            // $stmt->bind_param("i", $_GET['p_id']);
+            $stmt->execute(); 
+            $result = $stmt->get_result();
+            while($categories = $result->fetch_assoc()){
+                $cat_id = $categories['cat_id'];
+                $cat_title = $categories['cat_title'];
+                $cat_image = $categories['cat_image'];
+
+                echo "
+                <div class='each-category'>
+                    <a href='product_details.php?p_id=$cat_id'>
+                        <img src='admin/images/categories/$cat_image' alt='$cat_title' />
+                    </a>
+                    <div class='category-name'>
+                        <p><a href='product_details.php?p_id=$cat_id'>$cat_title</a></p>
+                    </div>
                 </div>
-            </div>
-            <div class="each-category">
-                <img src="images\categories\coconut.png" alt="" />
-                <div class="category-name">
-                    <p>Coconut products</p>
-                </div>
-            </div>
-            <div class="each-category">
-                <img src="images\categories\dry-fruits.png" alt="" />
-                <div class="category-name">
-                    <p>Dry fruits</p>
-                </div>
-            </div>
-            <div class="each-category">
-                <img src="images\categories\pickles.png" alt="" />
-                <div class="category-name">
-                    <p>Pickles</p>
-                </div>
-            </div>
-            <div class="each-category">
-                <img src="images\categories\spices.png" alt="" />
-                <div class="category-name">
-                    <p>Spices</p>
-                </div>
-            </div>
-            <div class="each-category">
-                <img src="images\categories\pickles.png" alt="" />
-                <div class="category-name">
-                    <p>Pickles</p>
-                </div>
-            </div>
-            <div class="each-category">
-                <img src="images\categories\spices.png" alt="" />
-                <div class="category-name">
-                    <p>Spices</p>
-                </div>
-            </div>
+                ";
+            }
+
+            ?>
         </div>
 
         <div class="ad-banner">
@@ -114,99 +102,39 @@
             <a class="arrow-left arrow"><</a>
             <a class="arrow-right arrow">></a>
             <div class="pdt-list-horizontal top-products-list">
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
+                <?php
+
+                $sql = "SELECT * FROM products LIMIT 8";
+                $stmt = $conn->prepare($sql);
+                // $stmt->bind_param("i", $_GET['p_id']);
+                $stmt->execute(); 
+                $result = $stmt->get_result();
+                while($product = $result->fetch_assoc()){
+                    $p_id = $product['p_id'];
+                    $p_title = $product['p_title'];
+                    $p_price_1 = $product['p_price_1'];
+                    $p_wt_1 = $product['p_wt_1'];
+                    $p_img_1 = $product['p_img_1'];
+
+                    echo "
+                    <div class='each-product product-card'>
+                        <img src='admin/images/product-images/$p_img_1' alt=''>
+                        <div class='product-info'>
+                            <div class='product-title'>
+                                <b>$p_title</b>
+                            </div>
+                            <div class='product-para'>
+                                $p_wt_1 Kg
+                            </div>
+                            <div class='product-price'>
+                                $$p_wt_1
+                            </div>
                         </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
                     </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product product-card">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b>Dummy Title</b>
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
+                    ";
+                }
+
+                ?>
             </div>
         </div>
 
@@ -235,123 +163,39 @@
             <a class="na-arrow-left na-arrow"><</a>
             <a class="na-arrow-right na-arrow">></a>
             <div class="pdt-list-horizontal new-arrival-list">
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
+                <?php
+
+                $sql = "SELECT * FROM products ORDER BY p_id DESC LIMIT 8";
+                $stmt = $conn->prepare($sql);
+                // $stmt->bind_param("i", $_GET['p_id']);
+                $stmt->execute(); 
+                $result = $stmt->get_result();
+                while($product = $result->fetch_assoc()){
+                    $p_id = $product['p_id'];
+                    $p_title = $product['p_title'];
+                    $p_price_1 = $product['p_price_1'];
+                    $p_wt_1 = $product['p_wt_1'];
+                    $p_img_1 = $product['p_img_1'];
+
+                    echo "
+                    <div class='each-product product-card'>
+                        <img src='admin/images/product-images/$p_img_1' alt=''>
+                        <div class='product-info'>
+                            <div class='product-title'>
+                                <b>$p_title</b>
+                            </div>
+                            <div class='product-para'>
+                                $p_wt_1 Kg
+                            </div>
+                            <div class='product-price'>
+                                $$p_wt_1
+                            </div>
                         </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
                     </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
-                <div class="each-product">
-                    <img src="images/product-images/product-dummy.png" alt="" />
-                    <div class="product-info">
-                        <div class="product-title">
-                            <b
-                                >Dummy Title bla bla bla vla sdhsjdsd kkdsj
-                                dksjd ksdj ds</b
-                            >
-                        </div>
-                        <div class="product-para">1 Kg</div>
-                        <div class="product-price">$ 5</div>
-                    </div>
-                </div>
+                    ";
+                }
+
+                ?>
             </div>
         </div>
 

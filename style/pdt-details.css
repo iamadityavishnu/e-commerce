@@ -27,7 +27,7 @@ main {
     justify-content: space-between;
 }
 
-.left-content .btn-container button {
+.left-content .btn-container input[type="submit"] {
     height: 50px;
     width: 48%;
     border: 0;

@@ -1,3 +1,27 @@
+<?php
+include("includes\dbconnection.php");
+
+$sql = "SELECT * FROM products WHERE p_id=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $_GET['p_id']);
+$stmt->execute(); 
+$result = $stmt->get_result();
+$product = $result->fetch_assoc();
+
+$p_title = $product['p_title'];
+$p_price_1 = $product['p_price_1'];
+$p_price_2 = $product['p_price_2'];
+$p_price_3 = $product['p_price_3'];
+$p_wt_1 = $product['p_wt_1'];
+$p_wt_2 = $product['p_wt_2'];
+$p_wt_3 = $product['p_wt_3'];
+$p_desc = $product['p_desc'];
+$p_img_1 = $product['p_img_1'];
+$p_img_2 = $product['p_img_2'];
+$p_img_3 = $product['p_img_3'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +46,7 @@
     <link rel="stylesheet" href="style/pdt-details.css">
     <link rel="icon" href="images/TIMES LOGO.jpg" type="image/jpg" sizes="16x16"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Times International | Home</title>
+    <title>Times International </title>
 </head>
 <body>
     <?php
@@ -34,15 +58,11 @@
             <div class="product-details">
                 <div class="left-content">
                     <div class="product-image">
-                        <img src="https://dummyimage.com/200x200.png?text=product" alt="">
+                        <img src="admin\images\product-images\<?php echo $p_img_1 ?>" alt="">
                     </div>
                     <div class="btn-container">
-                        <button class="btn-atc">
-                            Add to cart
-                        </button>
-                        <button class="btn-buy-now">
-                            Buy now
-                        </button>
+                        <input type="submit" value="Add to cart" class="btn-atc">
+                        <input type="submit" value="Buy now" class="btn-buy-now">
                     </div>
                 </div>
                 <div class="right-content">
@@ -50,15 +70,15 @@
                         <!-- TODO BREADCRUMB -->
                     </div>
                     <div class="product-title">
-                        This is the product title 100 gms canned product
+                        <?php echo $p_title; ?>
                     </div>
                     <div class="price">
-                        <div class="sale-price">
-                            $500
+                        <div class="sale-price" id="sale-price">
+                            <?php echo "$$p_price_1"; ?>
                         </div>
-                        <div class="original-price">
+                        <!-- <div class="original-price">
                             <strike>$600</strike>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="quantity">
                         <button class="btn-tiny">—</button>
@@ -68,21 +88,19 @@
                     <div class="weight-options">
                         <div class="label-text">Weight:</div>
                         <div>
-                            <select name="product-weights" id="">
-                                <option>1kg $500</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select name="product-weights" id="" onchange="showPrice(this.value, <?php echo $_GET['p_id']; ?>)">
+                                <option value="1"> <?php echo "$p_wt_1 Kg $$p_price_1"; ?> </option>
+                                <option value="2"> <?php echo "$p_wt_2 Kg $$p_price_2"; ?> </option>
+                                <option value="3"> <?php echo "$p_wt_3 Kg $$p_price_3"; ?> </option>
                             </select>
                         </div>
                         <div>
-                            <p class="label-text">Available in:</p>
+                            <p class="label-text">Available in: <?php echo "$p_wt_1 Kg | $p_wt_2 Kg | $p_wt_3 Kg"; ?></p>
                         </div>
                     </div>
                     <div class="product-description">
                         <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi magni voluptatem facere,
-                        sunt perspiciatis deleniti et pariatur tempora delectus ratione iusto enim quia dignissimos 
-                        ipsa maiores sapiente nihil laudantium? Cupiditate.
+                            <?php echo $p_desc; ?>
                         </p>
                     </div>
                 </div>
@@ -96,134 +114,43 @@
                     </div>
                     <a class="arrow-left arrow"><</a>
                     <a class="arrow-right arrow">></a>
+
                     <!-- PDT LIST BEGINS -->
                     <div class="pdt-list-horizontal similar-products-list">
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title bla bla bla vla sdhsjdsd kkdsj dksjd ksdj ds</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
+                        
+                        <?php
+
+                        $sql = "SELECT * FROM products LIMIT 8";
+                        $stmt = $conn->prepare($sql);
+                        // $stmt->bind_param("i", $_GET['p_id']);
+                        $stmt->execute(); 
+                        $result = $stmt->get_result();
+                        while($product = $result->fetch_assoc()){
+                            $p_title = $product['p_title'];
+                            $p_price_1 = $product['p_price_1'];
+                            $p_wt_1 = $product['p_wt_1'];
+                            $p_img_1 = $product['p_img_1'];
+
+                            echo "
+                            <div class='each-product product-card'>
+                                <img src='admin/images/product-images/$p_img_1' alt=''>
+                                <div class='product-info'>
+                                    <div class='product-title'>
+                                        <b>$p_title</b>
+                                    </div>
+                                    <div class='product-para'>
+                                        $p_wt_1 Kg
+                                    </div>
+                                    <div class='product-price'>
+                                        $$p_wt_1
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="each-product product-card">
-                            <img src="images/product-images/product-dummy.png" alt="">
-                            <div class="product-info">
-                                <div class="product-title">
-                                    <b>Dummy Title</b>
-                                </div>
-                                <div class="product-para">
-                                    1 Kg
-                                </div>
-                                <div class="product-price">
-                                    $ 5
-                                </div>
-                            </div>
-                        </div>
+                            ";
+                        }
+                        
+                        ?>
+
                     </div>
                     <!-- PDT LIST ENDS -->
                 </div>
@@ -250,9 +177,32 @@
         </div>
     </main>
 
+    <!-- <WARNING> WE VERIFY EACH PURCHASE BEFORE SHIPPING. SO DON'T TRY TO CHEAT </WARNING> -->
+
     <?php
     include("includes/footer.php");
     ?>
 
 </body>
 </html>
+
+<script>
+
+function showPrice(index, p_id) {
+//   document.getElementById("purchase-btn").disabled = true;
+  $(':input[type="submit"]').attr('disabled','disabled');
+  var xhttp;
+
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    document.getElementById("sale-price").innerHTML = "$" + this.responseText;
+    // document.getElementById("price-to-pass").setAttribute("value", this.responseText);
+    $(':input[type="submit"]').removeAttr('disabled');
+    }
+  };
+  xhttp.open("GET", "getprice.php?index="+index+"&p="+p_id, true);
+  xhttp.send();
+}
+
+</script>
