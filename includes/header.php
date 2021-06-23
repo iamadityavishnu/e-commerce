@@ -12,8 +12,10 @@
     </div>
 
     <div class="search-bar">
-        <div><input class="search-field type="text" placeholder="Search"></div>
-        <div><button class="search-field">&#x1F50D;</button></div>
+        <form class="search-bar" action="search_result.php">
+        <div><input class="search-field" name="search_keyword" type="text" placeholder="Search"></div>
+        <div><input class="search-field" type="submit" value="&#x1F50D;"></div>
+        </form>
     </div>
 
     <div class="account-options">

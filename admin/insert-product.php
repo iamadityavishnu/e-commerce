@@ -70,7 +70,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Title:</label>
                         </td>
                         <td>
-                            <input type="text" name="p_title" placeholder="Product title" />
+                            <input type="text" name="p_title" placeholder="Product title" required/>
                         </td>
                     </tr>
                     <tr>
@@ -78,7 +78,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Description:</label>
                         </td>
                         <td>
-                            <textarea name="p_desc" rows="6" placeholder="Product description"></textarea>
+                            <textarea name="p_desc" rows="6" placeholder="Product description" required></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -126,7 +126,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Weights<br>(in milli):</label>
                         </td>
                         <td class="multi-inputs">
-                            <input type="number" name="p_weight_1" min="1" placeholder="Product weight 1 (in grams/milliliters)" />
+                            <input type="number" name="p_weight_1" min="1" placeholder="Product weight 1 (in grams/milliliters)" required />
                             <input type="number" name="p_weight_2" min="1" placeholder="Product weight 2 (in grams/milliliters)" />
                             <input type="number" name="p_weight_3" min="1" placeholder="Product weight 3 (in grams/milliliters)" />
                             <input type="checkbox" name="in_liters[]" />
@@ -138,7 +138,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Prices:</label>
                         </td>
                         <td class="multi-inputs">
-                            <input type="number" step="any" name="p_price_1" min="0" placeholder="Price for weight 1" />
+                            <input type="number" step="any" name="p_price_1" min="0" placeholder="Price for weight 1" required />
                             <input type="number" step="any" name="p_price_2" min="0" placeholder="Price for weight 2" />
                             <input type="number" step="any" name="p_price_3" min="0" placeholder="Price for weight 3" />
                         </td>
@@ -148,7 +148,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Images:</label>
                         </td>
                         <td class="multi-inputs">
-                            <input type="file" name="p_img_1" /><br />
+                            <input type="file" name="p_img_1" required /><br />
                             <input type="file" name="p_img_2" /><br />
                             <input type="file" name="p_img_3" />
                         </td>
@@ -166,7 +166,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Stock:</label>
                         </td>
                         <td>
-                            <input type="number" name="p_stock" min="0" placeholder="Number of items in stock" />
+                            <input type="number" name="p_stock" min="0" placeholder="Number of items in stock" required />
                         </td>
                     </tr>
                     <tr>

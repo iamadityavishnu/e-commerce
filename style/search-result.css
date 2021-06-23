@@ -20,6 +20,7 @@
 
 .result-container {
     display: flex;
+    align-items: flex-start;
     margin: 20px 5%;
 }
 
@@ -38,6 +39,18 @@
 .left-panel .filter-content ul {
     list-style: none;
     padding: 20px;
+    max-height: 250px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.left-panel .filter-content ul a {
+    text-decoration: none;
+    color: #242424;
+}
+
+.left-panel .filter-content ul a:hover {
+    color: #379af9;
 }
 
 .left-panel .filter-content ul li {
@@ -57,7 +70,7 @@
 .result-grid {
     padding: 40px 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-column-gap: 20px;
     grid-row-gap: 20px;
 }
@@ -83,6 +96,7 @@
 .product-info {
     background: #ececec;
     padding: 20px;
+    min-height: 140px;
     border-radius: 0px 0px 10px 10px;
 }
 
@@ -104,6 +118,11 @@
     justify-content: center;
 }
 
+.pagination ul a {
+    text-decoration: none;
+    color: #242424;
+}
+
 .pagination ul li {
     width: 30px;
     height: 30px;
@@ -111,6 +130,11 @@
     padding: 5px 10px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.pagination ul li.active {
+    background: #379af9;
+    color: #fff;
 }
 
 @media (max-width: 830px) {

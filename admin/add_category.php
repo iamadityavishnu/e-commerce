@@ -70,7 +70,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Category name:</label>
                         </td>
                         <td>
-                            <input type="text" name="c_name" placeholder="Category name" />
+                            <input type="text" name="c_name" placeholder="Category name" required/>
                         </td>
                     </tr>
                     <tr>
@@ -78,7 +78,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Description:</label>
                         </td>
                         <td>
-                            <textarea name="c_desc" rows="6" placeholder="Category description"></textarea>
+                            <textarea name="c_desc" rows="6" placeholder="Category description" required></textarea>
                         </td>
                     </tr>
                     
@@ -87,7 +87,7 @@ include("..\includes\dbconnection.php");
                             <label for="">Image:</label>
                         </td>
                         <td class="multi-inputs">
-                            <input type="file" name="c_img" />
+                            <input type="file" name="c_img" required/>
                         </td>
                     </tr>
                     

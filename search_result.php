@@ -1,5 +1,28 @@
 <?php
 include('includes/dbconnection.php');
+
+$sql = "SELECT * FROM products WHERE p_title LIKE ? OR p_keywords LIKE ? OR p_desc LIKE ?";
+$stmt = $conn->prepare($sql);
+if(isset($_GET['search_keyword'])){
+    $q = $_GET['search_keyword'];
+}
+$q = "%$q%";
+$stmt->bind_param("sss", $q, $q, $q);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$total_results = mysqli_num_rows($result);
+$per_page = 8;
+
+if(isset($_GET['page'])){
+    $page = $_GET['page'];
+}else{
+    $_GET['page'] = 1;
+    $page = 1;
+}
+
+$start_from = ($page - 1) * $per_page;
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +73,7 @@ include('includes/dbconnection.php');
 
         <main>
             <div class="search-page-info">
-                <p>Showing 1-12 out of 42 results for: Pickles</p>
+                <p>Showing <?php echo ($start_from + 1), " - ", ($start_from + $per_page); ?> out of <?php echo $total_results ?> results for: <b><?php echo $_GET['search_keyword']?></b></p>
             </div>
             <div id="filter-toggle" onclick="toggleFilter()">
                 <p>Filter <img src="images/down-arrow.png" alt="" height="20px" style="float: right; margin: 15px 20px;"></p>
@@ -75,11 +98,22 @@ include('includes/dbconnection.php');
                     </div>
                     <div class="category-filter-content filter-content">
                         <ul>
-                            <li>Pickles</li>
-                            <li>Sweets</li>
-                            <li>Flour</li>
-                            <li>Convenience</li>
-                            <li>More</li>
+                            <?php
+                            if(isset($_GET['cat'])){
+                                $cat_id = $_GET['cat'];
+                            }
+                            $q = $_GET['search_keyword'];
+                            $sql = "SELECT cat_id, cat_title FROM categories";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            while ($categories = $result->fetch_assoc()){
+                                $cat_id = $categories['cat_id'];
+                                $cat_title = $categories['cat_title'];
+                                echo "<a href='search_result.php?cat=$cat_id'><li>$cat_title</li></a>";
+                            }
+                            ?>
+                            <!-- <li>More</li> -->
                         </ul>
                     </div>
 
@@ -88,11 +122,18 @@ include('includes/dbconnection.php');
                     </div>
                     <div class="brand-filter-content filter-content">
                         <ul>
-                            <li>Nirapara</li>
-                            <li>Daily Delight</li>
-                            <li>Flour</li>
-                            <li>Convenience</li>
-                            <li>More</li>
+                            <?php
+                            $sql = "SELECT b_id, b_name FROM brand";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            while ($brands = $result->fetch_assoc()){
+                                $b_id = $brands['b_id'];
+                                $b_name = $brands['b_name'];
+                                echo "<a href='search_result.php?brand=$b_id&cat=$cat_id&search_keyword=$q'><li>$b_name</li></a>";
+                            }
+                            ?>
+                            <!-- <li>More</li> -->
                         </ul>
                     </div>
                 </div>
@@ -103,170 +144,84 @@ include('includes/dbconnection.php');
                     <div class="search-result">
                         <div class="sort-options"></div>
                         <div class="result-grid">
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
+
+                            <?php
+                            $sql = "SELECT * FROM products WHERE p_title LIKE ? OR p_keywords LIKE ? OR p_desc LIKE ? LIMIT ?,?";
+                            $stmt = $conn->prepare($sql);
+                            if(isset($_GET['search_keyword'])){
+                                $q = $_GET['search_keyword'];
+                            }
+                            $q = "%$q%";
+                            $stmt->bind_param("sssii", $q, $q, $q, $start_from, $per_page);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+
+                            if(mysqli_num_rows($result) == 0){
+                                echo "Sorry! No products match the keyword";
+                            }else{
+                                while ($product = $result->fetch_assoc()){
+                                $p_id = $product['p_id'];
+                                $p_img = $product['p_img_1'];
+                                $p_title = $product['p_title'];
+                                $p_weight = $product['p_wt_1'];
+                                $p_price = $product['p_price_1'];
+
+                                echo "
+                                <div class='each-product product-card'>
+                                    <a href='product_details.php?p_id=$p_id'>
+                                        <img
+                                            src='admin/images/product-images/$p_img'
+                                            alt=''
+                                        />
+                                        <div class='product-info'>
+                                            <div class='product-title'>
+                                                <b>$p_title</b>
+                                            </div>
+                                            <div class='product-para'>
+                                                $p_weight Kg
+                                            </div>
+                                            <div class='product-price'>
+                                                $$p_price
+                                            </div>
                                         </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
-                                        </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
-                                        </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
-                                        </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
-                                        </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
-                                        </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
-                                        </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="each-product product-card">
-                                <a href="product_details.php?p_id=$cat_id">
-                                    <img
-                                        src="admin/images/product-images/product-dummy.png"
-                                        alt=""
-                                    />
-                                    <div class="product-info">
-                                        <div class="product-title">
-                                            <b>$p_title</b>
-                                        </div>
-                                        <div class="product-para">
-                                            $p_wt_1 Kg
-                                        </div>
-                                        <div class="product-price">
-                                            $$p_wt_1
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                                ";
+                                }
+                            }
+
+                            ?>
+
                         </div>
                     </div>
 
                     <div class="pagination">
                         <div>
                             <ul>
-                                <li>1</li>
-                                <li>2</li>
-                                <li>3</li>
-                                <li>4</li>
-                                <li>5</li>
-                                <li>Next</li>
+
+                                <?php
+
+                                $total_pages = ceil($total_results/$per_page);
+                                $q = $_GET['search_keyword'];
+                                if(isset($_GET['page'])){
+                                    $present_page = $_GET['page'];
+                                    for($i=1; $i<=$total_pages; $i++){
+                                        if($present_page == $i){
+                                            echo "<a href='search_result.php?search_keyword=$q&page=$i'><li class='active'>$i</li></a>";
+                                        }else{
+                                            echo "<a href='search_result.php?search_keyword=$q&page=$i'><li>$i</li></a>";
+                                        }
+                                    }
+                                    if($present_page < $total_pages){
+                                        $next_page = $present_page + 1;
+                                        echo "<a href='search_result.php?search_keyword=$q&page=$next_page'><li>Next</li></a>";
+                                    }else{
+                                        echo "<a href='search_result.php?search_keyword=$q&page=1'><li style='width: auto;'>First page</li></a>";
+                                    }
+                                }
+                                
+                                ?>
+                            
                             </ul>
                         </div>
                     </div>

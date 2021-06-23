@@ -103,12 +103,12 @@ input.search-field {
     padding: 10px;
     border-radius: 10px 0px 0px 10px;
 }
-button.search-field {
+input[type="submit"].search-field {
     width: 40px;
     background: #ebebeb;
     border-radius: 0px 10px 10px 0px;
 }
-button.search-field:hover {
+input[type="submit"].search-field:hover {
     cursor: pointer;
 }
 
