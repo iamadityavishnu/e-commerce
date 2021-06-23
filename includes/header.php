@@ -17,7 +17,7 @@
     </div>
 
     <div class="account-options">
-        <div><a href="">My account</a></div>
+        <div><a href="">Log in/Sign up</a></div>
         <div><a href="">Cart 🛒</a></div>
         <div class="dropdown">
             <a class="drop-btn" href="">More</a>

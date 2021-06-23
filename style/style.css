@@ -30,6 +30,10 @@ header .account-options {
     align-items: center;
 }
 
+main {
+    min-height: 50vh;
+}
+
 .account-options div,
 .brand-container div {
     padding: 20px;
@@ -118,6 +122,8 @@ button.search-field:hover {
     display: flex;
     margin: 5%;
     flex-direction: column;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.098);
 }
 
 .pdt-container-horizontal .title-horizontal h3 {

@@ -3,6 +3,8 @@
     padding: 15px;
     display: flex;
     justify-content: space-evenly;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.098);
 }
 
 .categories .each-category {
@@ -42,6 +44,8 @@
 
 .ad-banner img {
     width: 100%;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.098);
 }
 
 .slideshow-container {
@@ -51,6 +55,8 @@
 .slideshow-container .mySlides img {
     width: 100%;
     height: auto;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.098);
 }
 
 @media (max-width: 700px) {
