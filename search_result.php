@@ -73,7 +73,16 @@ $start_from = ($page - 1) * $per_page;
 
         <main>
             <div class="search-page-info">
-                <p>Showing <?php echo ($start_from + 1), " - ", ($start_from + $per_page); ?> out of <?php echo $total_results ?> results for: <b><?php echo $_GET['search_keyword']?></b></p>
+                <p>
+                    Showing <?php echo ($start_from + 1), " - ", ($start_from + $per_page); ?> out of <?php echo $total_results ?> results for: <b><?php echo "'", $_GET['search_keyword'], "'"; ?></b>
+                    <?php 
+                    if(isset($_GET['cat_title'])){
+                        echo "from category <b>", $_GET['cat_title'], "</b>";
+                    }
+                    if(isset($_GET['brand_name'])){
+                        echo "from brand <b>", $_GET['brand_name'], "</b>";
+                    } ?>
+                </p>
             </div>
             <div id="filter-toggle" onclick="toggleFilter()">
                 <p>Filter <img src="images/down-arrow.png" alt="" height="20px" style="float: right; margin: 15px 20px;"></p>
@@ -99,9 +108,6 @@ $start_from = ($page - 1) * $per_page;
                     <div class="category-filter-content filter-content">
                         <ul>
                             <?php
-                            if(isset($_GET['cat'])){
-                                $cat_id = $_GET['cat'];
-                            }
                             $q = $_GET['search_keyword'];
                             $sql = "SELECT cat_id, cat_title FROM categories";
                             $stmt = $conn->prepare($sql);
@@ -110,7 +116,7 @@ $start_from = ($page - 1) * $per_page;
                             while ($categories = $result->fetch_assoc()){
                                 $cat_id = $categories['cat_id'];
                                 $cat_title = $categories['cat_title'];
-                                echo "<a href='search_result.php?cat=$cat_id'><li>$cat_title</li></a>";
+                                echo "<a href='search_result.php?search_keyword=$q&cat=$cat_id&cat_title=$cat_title'><li>$cat_title</li></a>";
                             }
                             ?>
                             <!-- <li>More</li> -->
@@ -130,7 +136,7 @@ $start_from = ($page - 1) * $per_page;
                             while ($brands = $result->fetch_assoc()){
                                 $b_id = $brands['b_id'];
                                 $b_name = $brands['b_name'];
-                                echo "<a href='search_result.php?brand=$b_id&cat=$cat_id&search_keyword=$q'><li>$b_name</li></a>";
+                                echo "<a href='search_result.php?search_keyword=$q&brand=$b_id&brand_name=$b_name'><li>$b_name</li></a>";
                             }
                             ?>
                             <!-- <li>More</li> -->
@@ -146,18 +152,43 @@ $start_from = ($page - 1) * $per_page;
                         <div class="result-grid">
 
                             <?php
-                            $sql = "SELECT * FROM products WHERE p_title LIKE ? OR p_keywords LIKE ? OR p_desc LIKE ? LIMIT ?,?";
-                            $stmt = $conn->prepare($sql);
-                            if(isset($_GET['search_keyword'])){
-                                $q = $_GET['search_keyword'];
+                            if(isset($_GET['cat'])){
+                                $sql = "SELECT * FROM products WHERE cat_id=? HAVING p_title LIKE ? OR p_keywords LIKE ? OR p_desc LIKE ? LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                if(isset($_GET['search_keyword'])){
+                                    $q = $_GET['search_keyword'];
+                                }
+                                $q = "%$q%";
+                                $cat_id = $_GET['cat'];
+                                $stmt->bind_param("isssii", $cat_id, $q, $q, $q, $start_from, $per_page);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                            }else if(isset($_GET['brand'])){
+                                $sql = "SELECT * FROM products WHERE b_id=? HAVING p_title LIKE ? OR p_keywords LIKE ? OR p_desc LIKE ? LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                if(isset($_GET['search_keyword'])){
+                                    $q = $_GET['search_keyword'];
+                                }
+                                $q = "%$q%";
+                                $b_id = $_GET['brand'];
+                                $stmt->bind_param("isssii", $b_id, $q, $q, $q, $start_from, $per_page);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                            }else{
+                                $sql = "SELECT * FROM products WHERE p_title LIKE ? OR p_keywords LIKE ? OR p_desc LIKE ? LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                if(isset($_GET['search_keyword'])){
+                                    $q = $_GET['search_keyword'];
+                                }
+                                $q = "%$q%";
+                                $stmt->bind_param("sssii", $q, $q, $q, $start_from, $per_page);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
                             }
-                            $q = "%$q%";
-                            $stmt->bind_param("sssii", $q, $q, $q, $start_from, $per_page);
-                            $stmt->execute();
-                            $result = $stmt->get_result();
 
                             if(mysqli_num_rows($result) == 0){
                                 echo "Sorry! No products match the keyword";
+                                // echo !empty($_GET['brand']);
                             }else{
                                 while ($product = $result->fetch_assoc()){
                                 $p_id = $product['p_id'];
