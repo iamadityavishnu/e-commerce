@@ -14,7 +14,7 @@
     <div class="search-bar">
         <form class="search-bar" action="search_result.php">
         <div><input class="search-field" name="search_keyword" type="text" placeholder="Search"></div>
-        <div><input class="search-field" type="submit" value="&#x1F50D;"></div>
+        <div><input class="search-field" type="submit" value="&#x1f36d;"></div>
         </form>
     </div>
 
