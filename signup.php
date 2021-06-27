@@ -36,7 +36,7 @@
             sizes="16x16"
         />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <title>Login | Times International</title>
+        <title>Signup | Times International</title>
 
         <style>
             main{
@@ -44,9 +44,9 @@
                 justify-content: center;
                 align-items: center;
             }
-            .login-container{
+            .signup-container{
                 background: #fff;
-                margin: 10% 0;
+                margin: 8% 0;
                 padding: 40px;
                 min-width: 30vw;
                 border-radius: 20px;
@@ -85,18 +85,19 @@
     ?>
 
     <main>
-        <div class="login-container">
+        <div class="signup-container">
             <div>
-                <h2>Login</h2>
+                <h2>Signup</h2>
             </div>
             <div class="form-container">
-                <form action="index.php" method="POST">
-                    <input type="email" placeholder="Email"><br>
-                    <input type="password" placeholder="Password"><br>
-                    <input type="submit" value="Login">
+                <form action="my_account.php" method="POST">
+                    <input name="user-name" type="text" placeholder="Name"><br>
+                    <input name="user-email" type="email" placeholder="Email"><br>
+                    <input name="password" type="password" placeholder="Password"><br>
+                    <input name="signup" type="submit" value="Signup">
                 </form>
                 <div>
-                    <p>Don't have an account? Signup <a href="signup.php">here</a></p>
+                    <p>Already have an account? Login <a href="login.php">here</a></p>
                 </div>
             </div>
         </div>

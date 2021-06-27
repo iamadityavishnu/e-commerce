@@ -97,6 +97,7 @@ main {
 .search-bar .search-field {
     height: 40px;
     border: none;
+    background: #fff;
 }
 input.search-field {
     width: 20vw;
@@ -268,6 +269,9 @@ footer {
 
     .footer-column {
         margin: 10px;
+    }
+    .account-options a {
+        font-size: 1em;
     }
 }
 
