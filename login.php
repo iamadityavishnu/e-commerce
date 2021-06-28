@@ -1,3 +1,8 @@
+<?php
+
+if(!isset($_SESSION['email'])){
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -90,10 +95,10 @@
                 <h2>Login</h2>
             </div>
             <div class="form-container">
-                <form action="index.php" method="POST">
-                    <input type="email" placeholder="Email"><br>
-                    <input type="password" placeholder="Password"><br>
-                    <input type="submit" value="Login">
+                <form action="authorize.php" method="POST">
+                    <input name="email" type="email" placeholder="Email" required><br>
+                    <input name="password" type="password" placeholder="Password" required><br>
+                    <input name="login" type="submit" value="Login">
                 </form>
                 <div>
                     <p>Don't have an account? Signup <a href="signup.php">here</a></p>
@@ -107,3 +112,11 @@
     ?>
     </body>
 </html>
+
+<?php
+}else{
+    header("Location: http://localhost/times-international/index.php");
+    die();
+}
+
+?>

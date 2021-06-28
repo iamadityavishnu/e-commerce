@@ -189,7 +189,6 @@ $p_img_3 = $product['p_img_3'];
 <script>
 
 function showPrice(index, p_id) {
-//   document.getElementById("purchase-btn").disabled = true;
   $(':input[type="submit"]').attr('disabled','disabled');
   var xhttp;
 
@@ -197,7 +196,6 @@ function showPrice(index, p_id) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
     document.getElementById("sale-price").innerHTML = "$" + this.responseText;
-    // document.getElementById("price-to-pass").setAttribute("value", this.responseText);
     $(':input[type="submit"]').removeAttr('disabled');
     }
   };

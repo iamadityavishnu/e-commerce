@@ -2,8 +2,53 @@
 
 include('includes/dbconnection.php');
 session_start();
-$_SESSION['name'] = $_POST['user-name'];
-$_SESSION['email'] = $_POST['user-email'];
+
+if(!isset($_SESSION['email']) && !isset($_POST['signup'])){
+    header('Location: http://localhost/times-international/login.php');
+    die();
+}
+
+if(isset($_POST['signup'])){
+    if(isset($_POST['user-name'])){
+        $_SESSION['name'] = $_POST['user-name'];
+    }
+    if(isset($_POST['user-email'])){
+        $_SESSION['email'] = $_POST['user-email'];
+    }
+    $sql = "INSERT INTO customers (cust_name, cust_email, cust_pass, cust_img) VALUES (?,?,?,?)";
+
+    $stmt = $conn->prepare($sql);
+
+    $cust_name = $_POST['user-name'];
+    $cust_email = $_POST['user-email'];
+    $cust_pass = md5($_POST['password']);
+    $cust_img = "ca7b6044398c39b298b9ce6e2f503ca.png";
+
+    $stmt->bind_param("ssss", $cust_name, $cust_email, $cust_pass, $cust_img);
+    if(!($stmt->execute())){
+        session_unset();
+        session_destroy();
+        echo "<script>alert('Email ID already taken!')</script>";
+        echo "<script>window.open('signup.php','_self')</script>";
+    }
+}
+
+$sql = "SELECT * FROM customers WHERE cust_email=?";
+$stmt = $conn->prepare($sql);
+$email = $_SESSION['email'];
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$data = $stmt->get_result()->fetch_assoc();
+
+$cust_id = $data['cust_id'];
+$cust_name = $data['cust_name'];
+$cust_email = $data['cust_email'];
+$cust_phone = $data['cust_phone'];
+$cust_add1 = $data['cust_add1'];
+$cust_add2 = $data['cust_add2'];
+$cust_state = $data['cust_state'];
+$post_code = $data['post_code'];
+$cust_img = $data['cust_img'];
 
 ?>
 
@@ -115,6 +160,23 @@ $_SESSION['email'] = $_POST['user-email'];
                 border-radius: 10px;
                 padding-left: 20px;
             }
+            form input[type="submit"]{
+                background: #379af9;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            }
+
+            /* Firefox */
+            input[type=number] {
+            -moz-appearance: textfield;
+            }
         </style>
     </head>
     
@@ -128,7 +190,7 @@ $_SESSION['email'] = $_POST['user-email'];
             <div class="left-panel">
                 <div class="user-info">
                     <div class="image-container">
-                        <img src="admin/images/profile-pictures/profile-picture.png" alt="profile-picture">
+                        <img src="admin/images/profile-pictures/ca7b6044398c39b298b9ce6e2f5003ca.png" alt="profile-picture">
                     </div>
                     <div class="name">
                         <p>Hello</p>
@@ -162,61 +224,11 @@ $_SESSION['email'] = $_POST['user-email'];
                 </div>
             </div>
             <div class="right-section">
-                <div class="edit-account">
-                    <form action="my_account.php" method="POST">
-                        <h3>Edit account details</h3>
-                        <table>
-                            <tr>
-                                <td>
-                                    <label>Name:</label><br>
-                                    <input type="text" name="name" value="<?php echo $_SESSION['name']; ?>" placeholder="John Doe" required>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Email:</label><br>
-                                    <input type="email" name="email" value="<?php echo $_SESSION['email']; ?>" placeholder="example@example.com" required>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Phone:</label><br>
-                                    <input type="number" name="phone" placeholder="Eg: +61 (3) 9947 6640" required <?php if(isset($_SESSION['email'])){ echo "autofocus='on'"; } ?>>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Address line 1:</label><br>
-                                    <input type="text" name="add1" placeholder="Street name" required>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Address line 2:</label><br>
-                                    <input type="text" name="add2" placeholder="Area/locality" required>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Province:</label><br>
-                                    <input type="text" name="province" placeholder="Your province" required>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>ZIP:</label><br>
-                                    <input type="number" name="zipcode" placeholder="Eg: 686510" required>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <br>
-                                    <input type="update-account" name="update" value="Update">
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-                </div>
+                <?php
+                if(isset($_GET['edit_account'])){
+                    include("includes/sub-sections/edit_account.php");
+                }
+                ?>
             </div>
         </div>
     </main>
@@ -235,8 +247,16 @@ if(isset($_POST['update-account'])){
     $phone = $_POST['phone'];
     $add1 = $_POST['add1'];
     $add2 = $_POST['add2'];
-    $province = $_POST['province'];
-    $zipcode = $_POST['zipcode'];
+    $state = $_POST['state'];
+    $post_code = $_POST['post-code'];
+
+    $sql = "UPDATE customers SET cust_name=?, cust_email=?, cust_phone=?, cust_add1=?, cust_add2=?, cust_state=?, post_code=? WHERE cust_id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssssi", $name, $email, $phone, $add1, $add2, $state, $post_code, $cust_id);
+    if($stmt->execute()){
+        echo "<script>alert('Profile updated successfully!')</script>";
+        echo "<script>window.open('my_account.php','_self')</script>";
+    }
 }
 
 ?>

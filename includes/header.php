@@ -1,15 +1,17 @@
 <header>
-    <div class="brand-container">
-        <div class="brand-logo">
-            <img src="images/TIMES LOGO.png" alt="times international logo" />
+    <a href="http://localhost/times-international/index.php" style="text-decoration: none; color: #fff;">
+        <div class="brand-container">
+            <div class="brand-logo">
+                <img src="images/TIMES LOGO.png" alt="times international logo" />
+            </div>
+            <div class="brand-name">
+                <h1>
+                    Times <br />
+                    International
+                </h1>
+            </div>
         </div>
-        <div class="brand-name">
-            <h1>
-                Times <br />
-                International
-            </h1>
-        </div>
-    </div>
+    </a>
 
     <div class="search-bar">
         <form class="search-bar" action="search_result.php">
@@ -19,8 +21,16 @@
     </div>
 
     <div class="account-options">
-        <div><a href="">Log in/Sign up</a></div>
-        <div><a href="">Cart 🛒</a></div>
+        <div>
+            <?php
+                if(isset($_SESSION['email'])){
+                    echo "<a href='my_account.php'>My account</a>";
+                }else{
+                    echo "<a href='login.php'>Log in/Sign up</a>";
+                }
+            ?>
+        </div>
+        <div><a href="cart.php">Cart 🛒</a></div>
         <div class="dropdown">
             <a class="drop-btn" href="">More</a>
             <dropdown class="dropdown-content">
