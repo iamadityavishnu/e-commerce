@@ -131,6 +131,11 @@ input[type="submit"].search-field:hover {
     color: #25252d;
 }
 
+.each-product a {
+    text-decoration: none;
+    color: #444444;
+}
+
 .arrow-left,
 .na-arrow-left {
     position: absolute;

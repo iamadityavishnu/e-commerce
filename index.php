@@ -63,11 +63,11 @@ session_start();
 
                 echo "
                 <div class='each-category'>
-                    <a href='product_details.php?p_id=$cat_id'>
+                    <a href='http://localhost/times-international/search_result.php?search_keyword=&cat=$cat_id&cat_title=$cat_title'>
                         <img src='admin/images/categories/$cat_image' alt='$cat_title' />
                     </a>
                     <div class='category-name'>
-                        <p><a href='product_details.php?p_id=$cat_id'>$cat_title</a></p>
+                        <p><a href='http://localhost/times-international/search_result.php?search_keyword=&cat=$cat_id&cat_title=$cat_title'>$cat_title</a></p>
                     </div>
                 </div>
                 ";
@@ -118,6 +118,7 @@ session_start();
 
                     echo "
                     <div class='each-product product-card'>
+                        <a href='product_details.php?p_id=$p_id'>
                         <img src='admin/images/product-images/$p_img_1' alt=''>
                         <div class='product-info'>
                             <div class='product-title'>
@@ -130,6 +131,7 @@ session_start();
                                 $$p_wt_1
                             </div>
                         </div>
+                        </a>
                     </div>
                     ";
                 }
@@ -179,6 +181,7 @@ session_start();
 
                     echo "
                     <div class='each-product product-card'>
+                        <a href='product_details.php?p_id=$p_id'>
                         <img src='admin/images/product-images/$p_img_1' alt=''>
                         <div class='product-info'>
                             <div class='product-title'>
@@ -191,6 +194,7 @@ session_start();
                                 $$p_wt_1
                             </div>
                         </div>
+                        </a>
                     </div>
                     ";
                 }
