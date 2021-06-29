@@ -108,13 +108,13 @@ if(!isset($_SESSION['email'])){
                         var pass1 = form.password.value;
                         var pass2 = form.confirm_password.value;
                         if(pass1 == ""){
-                            document.getElementById("warning").innerHTML = "Please provide a password"
+                            document.getElementById("warning").innerHTML = "Please provide a password";
                             return false;
                         }else if(pass2 == ""){
-                            document.getElementById("warning").innerHTML = "Please confirm password"
+                            document.getElementById("warning").innerHTML = "Please confirm password";
                             return false;
                         }else if(pass1 != pass2){
-                            document.getElementById("warning").innerHTML = "Passwords do not match"
+                            document.getElementById("warning").innerHTML = "Passwords do not match";
                             return false;
                         }else{
                             return true;

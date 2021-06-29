@@ -54,7 +54,6 @@ session_start();
 
             $sql = "SELECT * FROM categories LIMIT 6";
             $stmt = $conn->prepare($sql);
-            // $stmt->bind_param("i", $_GET['p_id']);
             $stmt->execute(); 
             $result = $stmt->get_result();
             while($categories = $result->fetch_assoc()){

@@ -117,7 +117,7 @@ $cust_img = $data['cust_img'];
                 background: #fff;
                 width: 80vw;
                 min-height: 40vh;
-                padding: 50px 20px;
+                padding: 50px 30px;
             }
             form table{
                 width: 100%;
@@ -137,7 +137,7 @@ $cust_img = $data['cust_img'];
                 border-radius: 10px;
                 padding-left: 20px;
             }
-            form input[type="submit"]{
+            input[type="submit"]{
                 background: #379af9;
                 color: #fff;
                 border: none;
@@ -154,6 +154,25 @@ $cust_img = $data['cust_img'];
             input[type=number] {
             -moz-appearance: textfield;
             }
+
+            .menu{
+                display: none;
+                position: absolute;
+                left: 0px;
+                top: 210px;
+                background: #fff;
+                border-radius: 0 10px 10px 0;
+                padding: 5px 10px;
+            }
+
+            @media (max-width: 768px){
+                .left-panel{
+                    display: none;
+                }
+                .menu{
+                    display: block;
+                }
+            }
         </style>
     </head>
     
@@ -164,20 +183,23 @@ $cust_img = $data['cust_img'];
 
     <main>
         <div class="container">
+            <div class="menu">
+                <img src="images/right-arrow.png" alt="" height="20px">
+            </div>
             <div class="left-panel">
                 <div class="user-info">
                     <div class="image-container">
                         <img src="admin/images/profile-pictures/ca7b6044398c39b298b9ce6e2f5003ca.png" alt="profile-picture">
                     </div>
                     <div class="name">
-                        <p>Hello</p>
-                        <h4>John Doe</h4>
+                        <p>Hello,</p>
+                        <h5><?php echo $cust_name; ?></h5>
                     </div>
                 </div>
                 <div class="user-account-options">
                     <ul>
-                        <a href="my_account.php?my_profile">
-                            <li <?php if(isset($_GET['my_profile'])){echo "class='active'";} ?>>My profile</li>
+                        <a href="my_account.php">
+                            <li <?php if($_GET == NULL){echo "class='active'";} ?>>My profile</li>
                         </a>
                         <a href="my_account.php?my_orders">
                             <li <?php if(isset($_GET['my_orders'])){echo "class='active'";} ?>>My orders</li>
@@ -191,9 +213,6 @@ $cust_img = $data['cust_img'];
                         <a href="my_account.php?change_password">
                             <li <?php if(isset($_GET['change_password'])){echo "class='active'";} ?>>Change password</li>
                         </a>
-                        <!-- <a href="my_account.php?delete_account">
-                            <li>Delete account</li>
-                        </a> -->
                         <a href="logout.php">
                             <li>Logout</li>
                         </a>
@@ -202,9 +221,17 @@ $cust_img = $data['cust_img'];
             </div>
             <div class="right-section">
                 <?php
-                if(isset($_GET['edit_account'])){
-                    include("includes/sub-sections/edit_account.php");
-                }
+                    if(isset($_GET['edit_account'])){
+                        include("includes/sub-sections/edit_account.php");
+                    }else if(isset($_GET['my_orders'])){
+                        include("includes/sub-sections/my_orders.php");
+                    }else if(isset($_GET['my_address'])){
+                        include("includes/sub-sections/my_address.php");
+                    }else if(isset($_GET['change_password'])){
+                        include("includes/sub-sections/change_password.php");
+                    }else{
+                        include("includes/sub-sections/my_profile.php");
+                    }
                 ?>
             </div>
         </div>
