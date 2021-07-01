@@ -74,7 +74,7 @@ $start_from = ($page - 1) * $per_page;
         <main>
             <div class="search-page-info">
                 <p>
-                    Showing results(total <?php echo $total_results; ?>) for: <b><?php echo "'", $_GET['search_keyword'], "'"; ?></b>
+                    Showing results <?php if(($_GET['search_keyword']) != NULL){ echo "for: <b>", $_GET['search_keyword']; } ?></b>
                     <?php 
                     if(isset($_GET['cat_title'])){
                         echo "from category <b>", $_GET['cat_title'], "</b>";

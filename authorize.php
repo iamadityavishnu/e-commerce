@@ -39,7 +39,7 @@ if(isset($_POST['signup'])){
     $cust_name = $_POST['user-name'];
     $cust_email = $_POST['user-email'];
     $cust_pass = md5($_POST['password']);
-    $cust_img = "ca7b6044398c39b298b9ce6e2f503ca.png";
+    $cust_img = "ca7b6044398c39b298b9ce6e2f5003ca.png";
 
     $stmt->bind_param("ssss", $cust_name, $cust_email, $cust_pass, $cust_img);
     if(!($stmt->execute())){

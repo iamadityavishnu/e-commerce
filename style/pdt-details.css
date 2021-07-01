@@ -3,7 +3,7 @@ main {
 }
 
 .container {
-    padding: 40px;
+    padding: 3%;
 }
 
 .product-details {
@@ -38,7 +38,7 @@ main {
 }
 
 .btn-container .btn-atc {
-    background: #ec9b08;
+    background: #f9a620;
 }
 
 .btn-container .btn-buy-now {
@@ -113,7 +113,8 @@ main {
     margin-right: 20px;
 }
 
-.weight-options .label-text {
+.weight-options .label-text,
+.product-description .label-text {
     font-size: 1.2em;
 }
 
@@ -136,6 +137,10 @@ main {
 
     .product-details {
         padding: 0;
+    }
+
+    .left-content {
+        max-width: 100%;
     }
 
     .right-content {

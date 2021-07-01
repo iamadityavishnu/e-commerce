@@ -23,6 +23,7 @@
     <div class="account-options">
         <div>
             <?php
+                session_start();
                 if(isset($_SESSION['email'])){
                     echo "<a href='my_account.php'>My account</a>";
                 }else{
