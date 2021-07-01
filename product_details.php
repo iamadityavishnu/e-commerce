@@ -1,5 +1,6 @@
 <?php
 include("includes\dbconnection.php");
+session_start();
 
 $sql = "SELECT * FROM products WHERE p_id=?";
 $stmt = $conn->prepare($sql);

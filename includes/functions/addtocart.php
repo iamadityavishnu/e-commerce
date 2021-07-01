@@ -42,7 +42,13 @@ if(isset($_GET['p_id']) && isset($_GET['qty']) && isset($_GET['weight'])){
             // echo "<br><br>";
             // echo var_dump($cart[0]["pid"]);
         }
-        setcookie('cart', serialize($cart), time() + (86400 * 30), "/");
+        setcookie('cart', serialize($cart),[
+            'expires' => time() + 86400,
+            'path' => '/',
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'None',
+        ]);
         echo "OK";
     }else{
         $is_guest = 0;

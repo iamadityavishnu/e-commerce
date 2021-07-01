@@ -23,9 +23,6 @@
     <div class="account-options">
         <div>
             <?php
-                if(!isset($_SESSION['email'])){
-                    session_start();
-                }
                 if(isset($_SESSION['email'])){
                     echo "<a href='my_account.php'>My account</a>";
                 }else{
@@ -40,6 +37,11 @@
                 <a href="">About us</a>
                 <a href="">Legal</a>
                 <a href="">Contact us</a>
+                <?php
+                if(isset($_SESSION['email'])){
+                    echo "<a href='logout.php'>Logout</a>";
+                }
+                ?>
             </dropdown>
         </div>
         <div id="hamburger" onclick="toggleHam()">
@@ -47,6 +49,7 @@
             <dropdown class="ham-dropdown-content" id="dropdown">
                 <a href="">About us</a>
                 <a href="">Legal</a>
+
                 <a href="">Contact us</a>
             </dropdown>
         </div>

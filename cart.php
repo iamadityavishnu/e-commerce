@@ -3,20 +3,6 @@
 include('includes/dbconnection.php');
 session_start();
 
-// if(!isset($_SESSION['email'])){
-//     if(!isset($_COOKIE['cart'])){
-//         $cart = array(array("pid" => $p_id, "qty" => $qty, "weight" => $weight));
-//     }else{
-//         $cart = unserialize($_COOKIE['cart']);
-//         array_push($cart, array("pid" => $p_id, "qty" => $qty, "weight" => $weight));
-//         // echo var_dump($cart);
-//         // echo "<br><br>";
-//         // echo var_dump($cart[0]["pid"]);
-//     }
-// }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -163,45 +149,205 @@ session_start();
         <div class="container">
             <div class="left-section">
                 <div class="section-header">
-                    <h2>Cart (2) items</h2>
+                    <?php
+                    if(!isset($_SESSION['email'])){
+                        if(isset($_COOKIE['cart'])){
+                            echo "<h2>Cart (" .count(unserialize($_COOKIE['cart'])). ") items</h2>";
+                        }
+                    }
+                    ?>
                 </div>
-                <div class="each-item">
-                    <div class="each-item-left">
-                        <img src="admin/images/product-images/product-dummy.png" alt="">
-                        <div class="quantity">
-                            <button
-                                class="btn-tiny"
-                                onclick="document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) - 1;
-                                if(parseInt(document.getElementById('quantity').value) < 1){document.getElementById('quantity').value = 1;}"
-                            >
-                                —
-                            </button>
-                            <input
-                                id="quantity"
-                                type="number"
-                                name="quantity"
-                                value="1"
-                                min="1"
-                            />
-                            <button
-                                class="btn-tiny"
-                                onclick="document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1;"
-                            >
-                                +
-                            </button>
-                        </div>
+                <?php
+
+                if(!isset($_SESSION['email'])){
+                    if(isset($_COOKIE['cart'])){
+                        $cart = unserialize($_COOKIE['cart']);
+                        foreach ($cart as $key => $value){
+                            $qty = $value['qty'];
+                            $pid = $value['pid'];
+                            $weight = $value['weight'];
+
+                            $sql = "SELECT p_title, p_price_1, p_img_1, p_price_2, p_price_3, p_wt_1, p_wt_2, p_wt_3 FROM products WHERE p_id=?";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param("i", $pid);
+                            $stmt->execute(); 
+                            $result = $stmt->get_result();
+                            $product = $result->fetch_assoc();
+
+                            $p_price_1 = $product['p_price_1'];
+                            $p_price_2 = $product['p_price_2'];
+                            $p_price_3 = $product['p_price_3'];
+
+                            $p_title = $product['p_title'];
+                            $p_img = $product['p_img_1'];
+
+                            if($weight == 1){
+                                $price = $p_price_1;
+                                $weight = $product['p_wt_1'];
+                            }else if($weight == 2){
+                                $price = $p_price_2;
+                                $weight = $product['p_wt_2'];
+                            }else if($weight == 3){
+                                $price = $p_price_3;
+                                $weight = $product['p_wt_3'];
+                            }else{
+                                echo "ERROR";
+                            }
+
+                            echo "
+                            <div class='each-item'>
+                                <div class='each-item-left'>
+                                    <img src='admin/images/product-images/$p_img' alt=''>
+                                    <div class='quantity'>
+                                        <button
+                                            class='btn-tiny'
+                                            onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) - 1;
+                                            if(parseInt(document.getElementById('quantity').value) < 1){document.getElementById('quantity').value = 1;}'
+                                        >
+                                            —
+                                        </button>
+                                        <input
+                                            id='quantity'
+                                            type='number'
+                                            name='quantity'
+                                            value='$qty'
+                                            min='1'
+                                        />
+                                        <button
+                                            class='btn-tiny'
+                                            onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1;'
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class='each-item-right'>
+                                    <div class='product-info'>
+                                        <h3>$p_title</h3>
+                                        <p>Price: $$price</p>
+                                        <p>Weight: $weight</p>
+                                    </div>
+                                    <div class='remove-btn'>
+                                        <button onclick='removeItem($key)'>Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                            ";
+
+                        }
+                    }
+                }else{
+                    $cust_id = $_SESSION['cid'];
+
+                    $sql = "SELECT * FROM cart WHERE cust_id=?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("i", $cust_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $data = $result->fetch_all(MYSQLI_ASSOC);
+                    echo "
+                    <div class='section-header'>
+                            <h2>Cart (".count($data).") items</h2>
                     </div>
-                    <div class="each-item-right">
-                        <div class="product-info">
-                            <h3>Product name</h3>
-                            <p>Price: $4</p>
-                            <p>Weight: 1Kg</p>
+                    ";
+                    foreach ($data as $row){
+                        $p_id = $row['p_id'];
+                        $qty = $row['qty'];
+                        $weight = $row['weight'];
+                        $price = $row['price'];
+                        $slno = $row['slno'];
+
+                        $sql = "SELECT * FROM products WHERE p_id=?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $p_id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $products = $result->fetch_assoc();
+
+                        $p_img = $products['p_img_1'];
+                        $p_price_1 = $products['p_price_1'];
+                        $p_price_2 = $products['p_price_2'];
+                        $p_price_3 = $products['p_price_3'];
+
+                        $p_title = $products['p_title'];
+                        $p_img = $products['p_img_1'];
+
+                        if($weight == 1){
+                            $price = $p_price_1;
+                            $weight = $products['p_wt_1'];
+                        }else if($weight == 2){
+                            $price = $p_price_2;
+                            $weight = $products['p_wt_2'];
+                        }else if($weight == 3){
+                            $price = $p_price_3;
+                            $weight = $products['p_wt_3'];
+                        }else{
+                            echo "ERROR";
+                        }
+
+                        echo "
+                        <div class='each-item'>
+                            <div class='each-item-left'>
+                                <img src='admin/images/product-images/$p_img' alt=''>
+                                <div class='quantity'>
+                                    <button
+                                        class='btn-tiny'
+                                        onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) - 1;
+                                        if(parseInt(document.getElementById('quantity').value) < 1){document.getElementById('quantity').value = 1;}'
+                                    >
+                                        —
+                                    </button>
+                                    <input
+                                        id='quantity'
+                                        type='number'
+                                        name='quantity'
+                                        value='$qty'
+                                        min='1'
+                                    />
+                                    <button
+                                        class='btn-tiny'
+                                        onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1;'
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                            <div class='each-item-right'>
+                                <div class='product-info'>
+                                    <h3>$p_title</h3>
+                                    <p>Price: $$price</p>
+                                    <p>Weight: $weight</p>
+                                </div>
+                                <div class='remove-btn'>
+                                    <button onclick='removeItem($slno)'>Remove</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="remove-btn">
-                            <button>Remove</button>
-                        </div>
-                    </div>
-                </div>
+                        ";
+                    }
+
+
+                }
+
+                ?>
+
+                <script>
+                    function removeItem(n){
+                        var xhttp;
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                if(this.responseText == "OK"){
+                                    var item = document.getElementsByClassName("each-item");
+                                    location.reload();
+                                }
+                            }
+                        };
+                        xhttp.open("GET", "includes/functions/updatecart.php?index=" + n, true);
+                        xhttp.send();
+                    }
+                </script>
+                
                 <div class="place-order">
                     <input type="submit" name="place-order" value="Place Order">
                 </div>

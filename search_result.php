@@ -1,5 +1,6 @@
 <?php
 include('includes/dbconnection.php');
+session_start();
 
 $sql = "SELECT * FROM products WHERE p_title LIKE ? OR p_keywords LIKE ? OR p_desc LIKE ?";
 $stmt = $conn->prepare($sql);
