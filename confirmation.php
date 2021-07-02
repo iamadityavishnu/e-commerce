@@ -102,10 +102,10 @@ session_start();
                 border: none;
             }
 
-            form table{
+            .address-form table{
                 width: 100%;
             }
-            form label{
+            .address-form label{
                 position: relative;
                 top: 12px;
                 left: 20px;
@@ -113,7 +113,7 @@ session_start();
                 padding: 0 5px;
                 font-size: 0.8em;
             }
-            form input{
+            .address-form input{
                 width: 100%;
                 height: 40px;
                 border: 3px solid #ebebeb;
@@ -231,19 +231,21 @@ session_start();
                             }
 
                             $total_price = $total_price + ($price*$qty);
+
+                            echo "
+                                <div class='each-item'>
+                                    <div class='each-item-left'>
+                                        <img src='admin/images/product-images/$p_img' alt=''>
+                                    </div>
+                                    <div class='each-item-right'>
+                                        <b>$p_title</b>
+                                        <p>$qty nos x $weight gms</p>
+                                        <p>$".$price*$qty."</p>
+                                    </div>
+                                </div>
+                            ";
                         }
-                        echo "
-                        <div class='each-item'>
-                            <div class='each-item-left'>
-                                <img src='admin/images/product-images/$p_img' alt=''>
-                            </div>
-                            <div class='each-item-right'>
-                                <b>$p_title</b>
-                                <p>$qty nos x $weight gms</p>
-                                <p>$".$price*$qty."</p>
-                            </div>
-                        </div>
-                        ";
+                        
                     }else{
                         if(isset($_COOKIE['cart'])){
                             $cart = unserialize($_COOKIE['cart']);
@@ -281,7 +283,7 @@ session_start();
                                 }
 
                                 $total_price = $total_price + ($price*$qty);
-                                
+
                                 echo "
                                     <div class='each-item'>
                                     <div class='each-item-left'>
@@ -332,7 +334,7 @@ session_start();
                     }else{
                         if(isset($_COOKIE['cart'])){
                             echo "
-                            <form action='place-order.php' method='GET'>
+                            <form class='address-form' action='place_order.php' method='GET'>
                             <table>
                                 <tr>
                                     <td>
@@ -426,7 +428,7 @@ session_start();
                     <?php
                     if(isset($_SESSION['email'])){
                         echo "
-                            <form action='place-order.php' method='POST'>
+                            <form action='place_order.php' method='POST'>
                         ";
                     }
                     ?>
