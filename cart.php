@@ -43,7 +43,7 @@ session_start();
             sizes="16x16"
         />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <title>My account | Times International</title>
+        <title>Cart | Times International</title>
 
         <style>
             main {
@@ -162,6 +162,7 @@ session_start();
                 if(!isset($_SESSION['email'])){
                     if(isset($_COOKIE['cart'])){
                         $cart = unserialize($_COOKIE['cart']);
+                        $total_price = 0;
                         foreach ($cart as $key => $value){
                             $qty = $value['qty'];
                             $pid = $value['pid'];
@@ -193,6 +194,8 @@ session_start();
                             }else{
                                 echo "ERROR";
                             }
+                            
+                            $total_price = $total_price + ($price*$qty);
 
                             echo "
                             <div class='each-item'>
@@ -245,6 +248,9 @@ session_start();
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $data = $result->fetch_all(MYSQLI_ASSOC);
+
+                    $total_price = 0;
+
                     echo "
                     <div class='section-header'>
                             <h2>Cart (".count($data).") items</h2>
@@ -285,6 +291,8 @@ session_start();
                             echo "ERROR";
                         }
 
+                        $total_price = $total_price + ($price*$qty);
+
                         echo "
                         <div class='each-item'>
                             <div class='each-item-left'>
@@ -316,7 +324,7 @@ session_start();
                                 <div class='product-info'>
                                     <h3>$p_title</h3>
                                     <p>Price: $$price</p>
-                                    <p>Weight: $weight</p>
+                                    <p>Weight: $weight gms</p>
                                 </div>
                                 <div class='remove-btn'>
                                     <button onclick='removeItem($slno)'>Remove</button>
@@ -349,7 +357,7 @@ session_start();
                 </script>
                 
                 <div class="place-order">
-                    <input type="submit" name="place-order" value="Place Order">
+                    <a href="confirmation.php"><input type="submit" name="place-order" value="Place Order"></a>
                 </div>
             </div>
             <div class="right-section">
@@ -358,16 +366,16 @@ session_start();
                 </div>
                 <div class="price-breakdown">
                     <div class="">
-                        <p>Price</p>
-                        <p>Discount</p>
-                        <p>Shipping</p>
-                        <p>Total</p>
+                        <p>Price (all items)</p>
+                        <!-- <p>Discount</p> -->
+                        <p>Shipping</p><br>
+                        <b style="font-size: 1.2em">Total</b>
                     </div>
                     <div class="" style="text-align: right">
-                        <p>Price</p>
-                        <p>Discount</p>
-                        <p>Shipping</p>
-                        <p>Total</p>
+                        <b>$<?php echo $total_price; ?></b>
+                        <!-- <p>$0</p> -->
+                        <p>$0</p><br>
+                        <b style="font-size: 1.2em">$<?php echo $total_price; ?></b>
                     </div>
                 </div>
             </div>
@@ -379,25 +387,3 @@ session_start();
     ?>
     </body>
 </html>
-
-<?php
-
-if(isset($_POST['update-account'])){
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $add1 = $_POST['add1'];
-    $add2 = $_POST['add2'];
-    $state = $_POST['state'];
-    $post_code = $_POST['post-code'];
-
-    $sql = "UPDATE customers SET cust_name=?, cust_email=?, cust_phone=?, cust_add1=?, cust_add2=?, cust_state=?, post_code=? WHERE cust_id=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssi", $name, $email, $phone, $add1, $add2, $state, $post_code, $cust_id);
-    if($stmt->execute()){
-        echo "<script>alert('Profile updated successfully!')</script>";
-        echo "<script>window.open('my_account.php','_self')</script>";
-    }
-}
-
-?>
