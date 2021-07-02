@@ -168,7 +168,7 @@
           <a data-toggle="tooltip" data-placement="top" title="Lock">
             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
           </a>
-          <a data-toggle="tooltip" data-placement="top" title="Logout" href="adminn_loginn.php">
+          <a data-toggle="tooltip" data-placement="top" title="Logout" href="admin_login.php">
             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
           </a>
         </div>
@@ -200,7 +200,7 @@
                   </a>
                 </li>
                 <li><a href="javascript:;">Help</a></li>
-                <li><a href="adminn_loginn.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                <li><a href="admin_login.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
               </ul>
             </li>
 
