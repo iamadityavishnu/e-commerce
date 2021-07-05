@@ -1,0 +1,29 @@
+/* For Firefox only */
+@-moz-document url-prefix() {
+    .form-height-custom {
+        height: auto;
+    }
+}
+
+/* Update Slider */
+.form-box {
+    margin: 0px auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 60vw;
+    color: #000000;
+}
+
+.form-box:nth-of-type(odd) {
+    background: #aaaaaa;
+}
+.form-box:nth-of-type(even) {
+    background: #e0e0e0;
+}
+
+td {
+    color: #110168;
+}
+th {
+    color: #0d0053;
+}

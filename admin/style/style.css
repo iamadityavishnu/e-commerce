@@ -1,29 +1,138 @@
-/* For Firefox only */
-@-moz-document url-prefix() {
-    .form-height-custom {
-        height: auto;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* Update Slider */
-.form-box {
-    margin: 0px auto;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 60vw;
-    color: #000000;
+body {
+    /* filter: invert(1) hue-rotate(180deg); */
+    background: #f5f6f8;
+    font-family: "Helvetica Neue", sans-serif;
+    transition: 0.3s;
 }
 
-.form-box:nth-of-type(odd) {
-    background: #aaaaaa;
-}
-.form-box:nth-of-type(even) {
-    background: #e0e0e0;
+.sidebar {
+    background: #fff;
+    width: 50px;
+    height: 100vh;
+    position: fixed;
+    transition: 0.3s;
 }
 
-td {
-    color: #110168;
+.sidebar .brand {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #08a2f9;
 }
-th {
-    color: #0d0053;
+
+.sidebar .menu {
+    height: calc(100% - 62px);
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.sidebar .menu .each-option {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .menu .each-option a {
+    text-decoration: none;
+    color: #c2cfe0;
+}
+
+.sidebar .menu .each-option .expanded {
+    display: none;
+    margin-left: 20px;
+    color: #c2cfe0;
+}
+.sidebar .menu .each-option .expanded:hover {
+    color: #08a2f9;
+}
+
+.sidebar .menu .each-option img:hover {
+    filter: invert(46%) sepia(70%) saturate(2266%) hue-rotate(174deg)
+        brightness(101%) contrast(96%);
+}
+
+.main {
+    width: calc(100% - 50px);
+    min-height: 100%;
+    float: right;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    padding: 10px 40px;
+    align-items: center;
+    background: linear-gradient(90deg, #c9c9c9 -43.63%, #ffffff 7.51%);
+}
+
+.header .title {
+    padding: 5px 30px;
+    color: #585858;
+    background: #ebebeb;
+    border-radius: 27px;
+}
+
+.header .profile {
+    display: flex;
+    align-items: center;
+}
+
+.header .profile .admin-name {
+    margin: 0 15px;
+    color: #08a2f9;
+}
+
+.header .profile img {
+    height: 45px;
+    border-radius: 50%;
+}
+
+.includes {
+    padding: 30px;
+}
+.includes .notification-cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.notification-cards .each-card {
+    color: #fff;
+    line-height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 30px;
+    flex-basis: 30%;
+    height: 90px;
+    background: #585858;
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.notification-cards .greetings {
+    background: linear-gradient(
+        90deg,
+        #bd74ea 0%,
+        #49b6eb 48.23%,
+        #85e9e9 100%
+    );
+}
+
+.notification-cards .new-orders {
+    background: linear-gradient(90.19deg, #61a935 -1.15%, #7de73d 99.84%);
+}
+
+.notification-cards .shipping {
+    background: linear-gradient(90.19deg, #a0a935 -1.15%, #e7e03d 99.84%);
 }
