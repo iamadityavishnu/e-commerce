@@ -2,13 +2,18 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    transition: 0.2s;
+}
+
+:root {
+    --blue: #08a2f9;
+    --off-blue: #c2cfe0;
 }
 
 body {
     /* filter: invert(1) hue-rotate(180deg); */
     background: #f5f6f8;
     font-family: "Helvetica Neue", sans-serif;
-    transition: 0.3s;
 }
 
 .sidebar {
@@ -101,12 +106,27 @@ body {
 .includes {
     padding: 30px;
 }
-.includes .notification-cards {
+
+.status-btn {
+    padding: 6px 12px;
+    border: none;
+    background: var(--blue);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+.status-btn:hover {
+    background: #597dac;
+}
+
+/* HOME */
+.home .notification-cards {
     display: flex;
     justify-content: space-around;
 }
 
-.notification-cards .each-card {
+.home .notification-cards .each-card {
     color: #fff;
     line-height: 20px;
     display: flex;
@@ -120,7 +140,7 @@ body {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.notification-cards .greetings {
+.home .notification-cards .greetings {
     background: linear-gradient(
         90deg,
         #bd74ea 0%,
@@ -129,10 +149,89 @@ body {
     );
 }
 
-.notification-cards .new-orders {
-    background: linear-gradient(90.19deg, #61a935 -1.15%, #7de73d 99.84%);
+.home .notification-cards .new-orders {
+    background: linear-gradient(90deg, #61a935 -1.15%, #7de73d 99.84%);
 }
 
-.notification-cards .shipping {
-    background: linear-gradient(90.19deg, #a0a935 -1.15%, #e7e03d 99.84%);
+.home .notification-cards .shipping {
+    background: linear-gradient(90deg, #a0a935 -1.15%, #e7e03d 99.84%);
 }
+
+.home .home-content {
+    margin: 40px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.home .home-content .new-orders {
+    flex-basis: 63%;
+    height: 100%;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.home .home-content .new-orders table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.home .home-content .new-orders table th {
+    text-align: left;
+    padding: 20px 10px;
+    color: rgb(84, 92, 102);
+}
+.home .home-content .new-orders table td {
+    vertical-align: top;
+    border: 1px solid rgba(194, 207, 224, 0.5);
+    color: rgb(111, 121, 134);
+    padding: 10px;
+}
+.home .home-content .new-orders table tr:nth-child(even) {
+    background: rgba(194, 207, 224, 0.5);
+    border: 3px solid rgba(194, 207, 224, 0.5);
+}
+
+.home .home-content .home-messages {
+    flex-basis: 30%;
+}
+
+.pagination {
+    height: 90px;
+    display: flex;
+    justify-content: center;
+}
+.pagination ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.pagination ul a {
+    text-decoration: none;
+    color: #4e4e4e;
+}
+
+.pagination ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    height: 40px;
+    width: 40px;
+    background: #c2cfe0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.pagination ul li:hover {
+    background: #08a2f9;
+    color: #fff;
+}
+
+.pagination .active {
+    background: #08a2f9;
+    color: #fff;
+}
+
+.print-icon {
+    cursor: url(../images/icons/printer.ico), auto;
+}
+
+/* END OF HOME */
