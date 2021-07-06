@@ -16,6 +16,11 @@ body {
     font-family: "Helvetica Neue", sans-serif;
 }
 
+.silent-link {
+    text-decoration: none;
+    color: #fff;
+}
+
 .sidebar {
     background: #fff;
     width: 50px;
@@ -107,6 +112,7 @@ body {
     padding: 30px;
 }
 
+/* BUTTONS */
 .status-btn {
     padding: 6px 12px;
     border: none;
@@ -115,15 +121,77 @@ body {
     cursor: pointer;
     border-radius: 20px;
     text-transform: uppercase;
+    width: 100%;
+}
+.ship-btn {
+    background: #288172;
+}
+.reject-btn {
+    background: #e57373;
+}
+.print-btn {
+    margin-top: 10px;
+    padding: 3px;
+    width: 30%;
+    background: #7c7c7c;
+    cursor: pointer;
 }
 .status-btn:hover {
-    background: #597dac;
+    background: #2c67b4;
 }
+.ship-btn:hover {
+    background: #1e6459;
+}
+.reject-btn:hover {
+    background: #f44336;
+}
+
+/* END OF BUTTONS */
+
+/* ORDER STATUS INDICATOR */
+.order-status {
+    text-align: center;
+    font-size: 0.7em;
+    padding: 3px 5px;
+    color: #fff;
+    border-radius: 20px;
+}
+.os-new {
+    background: #4caf50;
+}
+.os-cfm {
+    background: #c0ca33;
+}
+.os-pkd {
+    background: #ffa726;
+}
+.os-shp {
+    background: #ab47bc;
+}
+.os-del {
+    background: #66bb6a;
+}
+.os-cnl {
+    background: #ff7043;
+}
+.os-rtn {
+    background: #7e57c2;
+}
+.os-rpc {
+    background: #26c6da;
+}
+.os-lst {
+    background: #ef5350;
+}
+.os-rjt {
+    background: #ff7043;
+}
+/* END OF ORDER STATUS INDICATOR */
 
 /* HOME */
 .home .notification-cards {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .home .notification-cards .each-card {
@@ -160,7 +228,6 @@ body {
 .home .home-content {
     margin: 40px 0;
     display: flex;
-    justify-content: space-around;
 }
 
 .home .home-content .new-orders {
@@ -198,6 +265,7 @@ body {
     height: 90px;
     display: flex;
     justify-content: center;
+    max-width: 100%;
 }
 .pagination ul {
     display: flex;
@@ -230,8 +298,36 @@ body {
     color: #fff;
 }
 
-.print-icon {
-    cursor: url(../images/icons/printer.ico), auto;
+/* END OF HOME */
+
+/* ORDERS */
+
+.order-status-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: center;
 }
 
-/* END OF HOME */
+.order-status-options .each-option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: purple;
+    height: 50px;
+    width: 100%;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+select {
+    background: var(--off-blue);
+    height: 30px;
+    width: 100%;
+    border: none;
+}
