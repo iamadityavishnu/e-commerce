@@ -1,32 +1,35 @@
 <?php
 include("..\includes\dbconnection.php");
 
-$sql = "SELECT * FROM orders WHERE order_status=?";
-$stmt = $conn->prepare($sql);
-$order_status = 0;
-$stmt->bind_param("i", $order_status);
-$stmt->execute();
-$result = $stmt->get_result();
-$total_results = mysqli_num_rows($result);
+session_start();
+    if(isset($_SESSION['admin_email']) && ($_SESSION['timeout'] + 10 * 60 > time())){
+        $_SESSION['timeout'] = time();
+        $sql = "SELECT * FROM orders WHERE order_status=?";
+        $stmt = $conn->prepare($sql);
+        $order_status = 0;
+        $stmt->bind_param("i", $order_status);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $total_results = mysqli_num_rows($result);
 
-$sql = "SELECT * FROM orders WHERE order_status=?";
-$stmt = $conn->prepare($sql);
-$order_status = 1;
-$stmt->bind_param("i", $order_status);
-$stmt->execute();
-$result = $stmt->get_result();
-$total_pending = mysqli_num_rows($result);
+        $sql = "SELECT * FROM orders WHERE order_status=?";
+        $stmt = $conn->prepare($sql);
+        $order_status = 1;
+        $stmt->bind_param("i", $order_status);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $total_pending = mysqli_num_rows($result);
 
-$per_page = 5;
-if(isset($_GET['page'])){
-    $page = $_GET['page'];
-}else{
-    $page = 1;
-}
+        $per_page = 5;
+        if(isset($_GET['page'])){
+            $page = $_GET['page'];
+        }else{
+            $page = 1;
+        }
 
-$start_from = ($page - 1) * $per_page;
-
+        $start_from = ($page - 1) * $per_page;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,8 +82,8 @@ $start_from = ($page - 1) * $per_page;
                     <a href="index.php?settings"><p class="expanded">Analytics</p></a>
                 </div>
                 <div class="each-option">
-                    <a href=""><img src="images/icons/logout.svg" alt="" <?php if(isset($_GET[''])){ echo "class='active'"; } ?>></a>
-                    <a href=""><p class="expanded">Logout</p></a>
+                    <a href="admin_login.php"><img src="images/icons/logout.svg" alt="" <?php if(isset($_GET[''])){ echo "class='active'"; } ?>></a>
+                    <a href="admin_login.php"><p class="expanded">Logout</p></a>
                 </div>
             </div>
         </div>
@@ -119,10 +122,10 @@ $start_from = ($page - 1) * $per_page;
                 </div>
                 <div class="profile">
                     <div class="admin-name">
-                        Hi, Nivin
+                        Hi, <?php echo $_SESSION['admin_name']; ?>
                     </div>
                     <div class="admin-pic">
-                        <img src="images/profile-pictures/portrait.jpg" alt="">
+                        <img src="images/admin-images/ca7b6044398c39b298b9ce6e2f5003ca.png" alt="">
                     </div>
                 </div>
             </div>
@@ -180,11 +183,24 @@ $start_from = ($page - 1) * $per_page;
                     include("includes/brand_list.php"); //brand 
                 }elseif(isset($_GET['ui_elements'])){
                     include("includes/ui_elements.php"); //ui_elements
+                }elseif(isset($_GET['settings'])){
+                    include("includes/settings.php"); //settings
+                }elseif(isset($_GET['change_password'])){
+                    include("includes/change_password.php"); //change password
+                }elseif(isset($_GET['add_admin'])){
+                    include("includes/add_admin.php"); //ui_elements
                 }else{
-                    echo "ERR";
+                    echo "No such page";
                 }
             ?>
         </div>
     
 </body>
 </html>
+
+<?php
+    }
+    else{
+        echo "<script>window.open('admin_login.php','_self')</script>";
+    }
+?>

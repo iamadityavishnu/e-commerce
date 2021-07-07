@@ -15,7 +15,7 @@ if(isset($_POST['login'])){
     if($data != NULL && $data['admin_pass'] == $password){
         session_start();
         $_SESSION['admin_email'] = $email;
-        $_SESSION['adin_name'] = $data['admin_name'];
+        $_SESSION['admin_name'] = $data['admin_name'];
         $_SESSION['aid'] = $data['admin_id'];
         $_SESSION['timeout'] = time();
         header('Location: http://localhost/times-international/admin/index.php');
