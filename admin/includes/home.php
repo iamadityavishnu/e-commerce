@@ -9,11 +9,11 @@
                     var now = new Date();
                     var hrs = now.getHours();
                     var msg = "";
-                    if (hrs >  0) msg = "Mornin' Sunshine!"; // REALLY early
-                    if (hrs >  6) msg = "Good morning!";      // After 6am
-                    if (hrs > 12) msg = "Good afternoon!";    // After 12pm
-                    if (hrs > 17) msg = "Good evening!";      // After 5pm
-                    if (hrs > 22) msg = "Good to see you 😴!";  // After 10pm
+                    if (0 <= hrs && hrs < 6){ msg = "Mornin' Sunshine!";} // REALLY early
+                    else if (6 <= hrs && hrs < 12){ msg = "Good morning!";}      // After 6am
+                    else if (12 <= hrs && hrs < 17){ msg = "Good afternoon!";}    // After 12pm
+                    else if (17 <= hrs && hrs < 22){ msg = "Good evening!";}      // After 5pm
+                    else { msg = "Good to see you 😴!";}  // After 10pm
                     document.getElementById("greetings").innerHTML = msg;
                 </script>
             </div>
@@ -50,7 +50,6 @@
                         $stmt->execute();
                         $result = $stmt->get_result();
                         $data = $result->fetch_all(MYSQLI_ASSOC);
-                        $total_price = 0;
 
                         foreach ($data as $row){
                             $order_id = $row['order_id'];

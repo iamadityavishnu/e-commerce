@@ -1,7 +1,7 @@
 <?php
 $sql = "SELECT * FROM orders WHERE order_status=?";
 $stmt = $conn->prepare($sql);
-$order_status = 4;
+$order_status = 6;
 $stmt->bind_param("i", $order_status);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -50,7 +50,7 @@ $total = mysqli_num_rows($result);
             <div class="new-orders">
                 <table>
                     <tr>
-                        <h1 style="margin: 20px; color: gray">Completed orders</h1> 
+                        <h1 style="margin: 20px; color: gray">Returned orders</h1> 
                     </tr>
                     <tr>
                         <th>Invoice</th>
@@ -104,7 +104,7 @@ $total = mysqli_num_rows($result);
                                     <td>
                                         $invoice_no<br><br>
                                         $date<br><br>
-                                        <p class='order-status os-del'>Delivered</p>
+                                        <p class='order-status os-rtn'>Returned</p>  
                                     </td>
                                     <td>
                                         <img src='images/product-images/$p_image' height='50px'><br><br>
@@ -163,7 +163,7 @@ $total = mysqli_num_rows($result);
                                     <td>
                                         $invoice_no<br><br>
                                         $date<br><br>
-                                        <p class='order-status os-del'>Delivered</p>  
+                                        <p class='order-status os-rtn'>Returned</p>  
                                     </td>
                                     <td>
                                         <img src='images/product-images/$p_image' height='50px'><br><br>
@@ -230,16 +230,16 @@ $total = mysqli_num_rows($result);
                             $present_page = $_GET['page'];
                             for($i=1; $i<=$total_pages; $i++){
                                 if($present_page == $i){
-                                    echo "<a href='index.php?completed_orders&page=$i'><li class='active'>$i</li></a>";
+                                    echo "<a href='index.php?returned_orders&page=$i'><li class='active'>$i</li></a>";
                                 }else{
-                                    echo "<a href='index.php?completed_orders&page=$i'><li>$i</li></a>";
+                                    echo "<a href='index.php?returned_orders&page=$i'><li>$i</li></a>";
                                 }
                             }
                             if($present_page < $total_pages){
                                 $next_page = $present_page + 1;
-                                echo "<a href='index.php?completed_orders&page=$next_page'><li style='width: 70px; padding: 10px; border-radius: 20px'>Next</li></a>";
+                                echo "<a href='index.php?returned_orders&page=$next_page'><li style='width: 70px; padding: 10px; border-radius: 20px'>Next</li></a>";
                             }else{
-                                echo "<a href='index.php?completed_orders&page=1'><li style='width: auto; padding: 10px; border-radius: 20px'>First page</li></a>";
+                                echo "<a href='index.php?returned_orders&page=1'><li style='width: auto; padding: 10px; border-radius: 20px'>First page</li></a>";
                             }
                         }
                         

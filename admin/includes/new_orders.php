@@ -153,13 +153,8 @@ $total_new = mysqli_num_rows($result);
                                 <tr>
                                     <td>
                                         $invoice_no<br><br>
-                                        $date<br><br>";
-                                        if($order_status == 1){
-                                            echo "<p class='order-status-cfm'>CONFIRMED</p>";
-                                        }elseif($order_status == 2){
-                                            echo "<p class='order-status-pkd'>PACKED</p>";
-                                        }
-                                    echo"
+                                        $date<br><br>
+                                        <p class='order-status os-new'>New</p>
                                     </td>
                                     <td>
                                         <img src='images/product-images/$p_image' height='50px'><br><br>

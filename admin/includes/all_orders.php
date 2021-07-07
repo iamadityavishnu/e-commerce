@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT * FROM orders";
+$sql = "SELECT * FROM orders"; // TO REMOVE
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -46,9 +46,19 @@ $total_orders = mysqli_num_rows($result);
         </div>
         <div class="home-content">
             <div class="new-orders">
+                <h1 style="text-align: center; margin-top: 20px; color: gray;">All orders</h1>
+                <form class="list" action="index.php?orders">
+                    <div class="list-search">
+                        <label for="">Search: </label>
+                        <input type="text" name="keyword">
+                        <input type="date" name="date_from">
+                        <input type="date" name="date_to">
+                        <input type="submit" name="order_search" id="" value="SEARCH">
+                    </div>
+                </form>
                 <table>
                     <tr>
-                        <h1 style="margin: 20px; color: gray">All orders</h1> 
+                         
                     </tr>
                     <tr>
                         <th>Invoice</th>
@@ -60,14 +70,113 @@ $total_orders = mysqli_num_rows($result);
                         <th>Mark as</th>
                     </tr>
                     <?php
-                        $sql = "SELECT * FROM orders LIMIT ?,?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("ii", $start_from, $per_page);
+
+                        if(isset($_GET['order_search'])){
+                            if(!empty($_GET['keyword']) && !empty($_GET['date_from']) && empty($_GET['date_to'])){
+
+                                $sql = "SELECT * FROM orders WHERE (order_id LIKE ? OR p_title LIKE ? OR cust_name LIKE ? OR state LIKE ?) AND (date >= ? AND date <= date_add(?, INTERVAL 7 DAY))";
+                                $stmt = $conn->prepare($sql);
+                                $keyword = $_GET['keyword'];
+                                $keyword = "%$keyword%";
+                                $date_from = $_GET['date_from'];
+                                $stmt->bind_param("ssssss", $keyword, $keyword, $keyword, $keyword, $date_from, $date_from);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $total = mysqli_num_rows($result);
+
+                                $sql = "SELECT * FROM orders WHERE (order_id LIKE ? OR p_title LIKE ? OR cust_name LIKE ? OR state LIKE ?) AND (date >= ? AND date <= date_add(?, INTERVAL 7 DAY)) LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                $keyword = $_GET['keyword'];
+                                $keyword = "%$keyword%";
+                                $date_from = $_GET['date_from'];
+                                $stmt->bind_param("ssssssii", $keyword, $keyword, $keyword, $keyword, $date_from, $date_from, $start_from, $per_page);
+
+                            }elseif(!empty($_GET['keyword']) && !empty($_GET['date_from']) && !empty($_GET['date_to'])){
+                                $sql = "SELECT * FROM orders WHERE (order_id LIKE ? OR p_title LIKE ? OR cust_name LIKE ? OR state LIKE ?) AND (date >= ? AND date <= ?)";
+                                $stmt = $conn->prepare($sql);
+                                $keyword = $_GET['keyword'];
+                                $keyword = "%$keyword%";
+                                $date_from = $_GET['date_from'];
+                                $date_to = $_GET['date_to'];
+                                $stmt->bind_param("ssssss", $keyword, $keyword, $keyword, $keyword, $date_from, $date_to);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $total = mysqli_num_rows($result);
+
+                                $sql = "SELECT * FROM orders WHERE (order_id LIKE ? OR p_title LIKE ? OR cust_name LIKE ? OR state LIKE ?) AND (date >= ? AND date <= ?) LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                $keyword = $_GET['keyword'];
+                                $keyword = "%$keyword%";
+                                $date_from = $_GET['date_from'];
+                                $date_to = $_GET['date_to'];
+                                $stmt->bind_param("ssssssii", $keyword, $keyword, $keyword, $keyword, $date_from, $date_to, $start_from, $per_page);
+
+                            }elseif(empty($_GET['keyword']) && !empty($_GET['date_from']) && !empty($_GET['date_to'])){
+                                
+                                $sql = "SELECT * FROM orders WHERE (date >= ? AND date <= ?)";
+                                $stmt = $conn->prepare($sql);
+                                $date_from = $_GET['date_from'];
+                                $date_to = $_GET['date_to'];
+                                $stmt->bind_param("ss", $date_from, $date_to);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $total = mysqli_num_rows($result);
+                                
+                                $sql = "SELECT * FROM orders WHERE (date >= ? AND date <= ?) LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                $date_from = $_GET['date_from'];
+                                $date_to = $_GET['date_to'];
+                                $stmt->bind_param("ssii", $date_from, $date_to, $start_from, $per_page);
+
+                            }elseif(empty($_GET['keyword']) && !empty($_GET['date_from']) && empty($_GET['date_to'])){
+                                
+                                $sql = "SELECT * FROM orders WHERE (date >= ? AND date <= date_add(?, INTERVAL 7 DAY))";
+                                $stmt = $conn->prepare($sql);
+                                $date_from = $_GET['date_from'];
+                                $stmt->bind_param("ss", $date_from, $date_from);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $total = mysqli_num_rows($result);
+
+                                $sql = "SELECT * FROM orders WHERE (date >= ? AND date <= date_add(?, INTERVAL 7 DAY)) LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                $date_from = $_GET['date_from'];
+                                $stmt->bind_param("ssii", $date_from, $date_from, $start_from, $per_page);
+
+                            }else{
+
+                                $sql = "SELECT * FROM orders WHERE (order_id LIKE ? OR p_title LIKE ? OR cust_name LIKE ? OR state LIKE ?)";
+                                $stmt = $conn->prepare($sql);
+                                $keyword = $_GET['keyword'];
+                                $keyword = "%$keyword%";
+                                $stmt->bind_param("ssss", $keyword, $keyword, $keyword, $keyword);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $total = mysqli_num_rows($result);
+
+                                $sql = "SELECT * FROM orders WHERE (order_id LIKE ? OR p_title LIKE ? OR cust_name LIKE ? OR state LIKE ?) LIMIT ?,?";
+                                $stmt = $conn->prepare($sql);
+                                $keyword = $_GET['keyword'];
+                                $keyword = "%$keyword%";
+                                $stmt->bind_param("ssssii", $keyword, $keyword, $keyword, $keyword, $start_from, $per_page);
+
+                            }
+                        }else{
+                            $sql = "SELECT * FROM orders";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $total = mysqli_num_rows($result);
+
+                            $sql = "SELECT * FROM orders LIMIT ?,?";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param("ii", $start_from, $per_page);
+                        }
+                        
                         $stmt->execute();
                         $result = $stmt->get_result();
                         $total_results = mysqli_num_rows($result);
                         $data = $result->fetch_all(MYSQLI_ASSOC);
-                        $total_price = 0;
 
                         foreach ($data as $row){
                             $order_id = $row['order_id'];
@@ -267,24 +376,29 @@ $total_orders = mysqli_num_rows($result);
                     <ul>
                         <?php
 
-                        $total_pages = ceil($total_orders/$per_page);
+                        $total_pages = ceil($total/$per_page);
                         if(!isset($_GET['page'])){
                             $_GET['page'] = 1;
                         }
+
+                        (isset($_GET['keyword'])) ? ($keyword = $_GET['keyword']) : $keyword = "";
+                        (isset($_GET['date_from'])) ? ($date_from = $_GET['date_from']) : $date_from = "";
+                        (isset($_GET['date_to'])) ? ($date_to = $_GET['date_to']) : $date_to = "";
+                        
                         if(isset($_GET['page'])){
                             $present_page = $_GET['page'];
                             for($i=1; $i<=$total_pages; $i++){
                                 if($present_page == $i){
-                                    echo "<a href='index.php?orders&page=$i'><li class='active'>$i</li></a>";
+                                    echo "<a href='index.php?orders&keyword=$keyword&date_from=$date_from&date_to=$date_to&page=$i&order_search'><li class='active'>$i</li></a>";
                                 }else{
-                                    echo "<a href='index.php?orders&page=$i'><li>$i</li></a>";
+                                    echo "<a href='index.php?orders&keyword=$keyword&date_from=$date_from&date_to=$date_to&page=$i&order_search'><li>$i</li></a>";
                                 }
                             }
                             if($present_page < $total_pages){
                                 $next_page = $present_page + 1;
-                                echo "<a href='index.php?orders&page=$next_page'><li style='width: 70px; padding: 10px; border-radius: 20px'>Next</li></a>";
+                                echo "<a href='index.php?orders&keyword=$keyword&date_from=$date_from&date_to=$date_to&page=$next_page&order_search'><li style='width: 70px; padding: 10px; border-radius: 20px'>Next</li></a>";
                             }else{
-                                echo "<a href='index.php?orders&page=1'><li style='width: auto; padding: 10px; border-radius: 20px'>First page</li></a>";
+                                echo "<a href='index.php?orders&keyword=$keyword&date_from=$date_from&date_to=$date_to&page=1&order_search'><li style='width: auto; padding: 10px; border-radius: 20px'>First page</li></a>";
                             }
                         }
                         

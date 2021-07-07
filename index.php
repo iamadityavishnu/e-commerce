@@ -77,22 +77,39 @@ session_start();
         </div>
 
         <div class="ad-banner">
-            <img src="images/ad-banner/ad-banner.png" alt="" />
+
+            <?php
+                $sql = "SELECT * FROM ad_banner";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute(); 
+                $result = $stmt->get_result();
+                while($categories = $result->fetch_assoc()){
+                    $b_image = $categories['banner_img'];
+                    echo "
+                        <img src='admin/images/ad-banner/$b_image' alt='' />
+                    ";
+                }
+            ?>
+            
         </div>
 
         <div class="slideshow-container">
-            <div class="mySlides slide-in">
-                <img src="images/slideshow/slider-1.png" alt="" />
-            </div>
-            <div class="mySlides slide-in">
-                <img src="images/slideshow/slider-2.png" alt="" />
-            </div>
-            <div class="mySlides slide-in">
-                <img src="images/slideshow/slider-3.png" alt="" />
-            </div>
-            <div class="mySlides slide-in">
-                <img src="images/slideshow/slider-4.png" alt="" />
-            </div>
+
+            <?php
+                $sql = "SELECT * FROM slider_images";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute(); 
+                $result = $stmt->get_result();
+                while($categories = $result->fetch_assoc()){
+                    $image = $categories['slider_img'];
+                    echo "
+                        <div class='mySlides slide-in'>
+                            <img src='admin/images/slideshow/$image' alt='' />
+                        </div>
+                    ";
+                }
+            ?>
+            
         </div>
 
         <div class="pdt-container-horizontal">
