@@ -197,11 +197,8 @@ $p_img_3 = $product['p_img_3'];
                                 $(':input[type="submit"]').attr("disabled", "disabled");
 
                                 var quantity = document.getElementById("quantity").value;
-                                console.log(quantity);
                                 var weight = document.getElementById("weight").value;
-                                console.log(weight);
                                 var p_id = <?php echo $p_id; ?>;
-                                console.log(p_id);
 
                                 var xhttp;
                                 xhttp = new XMLHttpRequest();

@@ -34,9 +34,9 @@
         <div class="dropdown">
             <a class="drop-btn" href="">More</a>
             <dropdown class="dropdown-content">
-                <a href="">About us</a>
-                <a href="">Legal</a>
-                <a href="">Contact us</a>
+                <a href="about_us.php">About us</a>
+                <a href="delivery_policy.php">Delivery policy</a>
+                <a href="contact_us.php">Contact us</a>
                 <?php
                 if(isset($_SESSION['email'])){
                     echo "<a href='logout.php'>Logout</a>";

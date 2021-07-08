@@ -265,7 +265,7 @@ $total_orders = mysqli_num_rows($result);
                                         <button class='status-btn print-btn' onclick='printDiv(\"$cust_name\", \"$cust_add1\", \"$cust_add2\", \"$cust_state\", \"$post_code\", \"$cust_phone\")'>Print</button>
                                     </td>
                                     <td style='vertical-align: middle'>
-                                        <select name='status' onChange='changeStatus(this.options[this.selectedIndex].value, $order_id)'>
+                                        <select name='status' onChange='changeStatus(this.options[this.selectedIndex].value, $order_id, \"$cust_email\", \"$cust_name\")'>
                                             <option value='0'>Pending</option>
                                             <option value='1'>Confirmed</option>
                                             <option value='2'>Packed</option>
@@ -337,7 +337,7 @@ $total_orders = mysqli_num_rows($result);
                                         <button class='status-btn print-btn' onclick='printDiv(\"$cust_name\", \"$add_1\", \"$add_2\", \"$state\", \"$post_code\", \"$cust_phone\")'>Print</button>
                                     </td>
                                     <td style='vertical-align: middle'>
-                                        <select name='status' onChange='changeStatus(this.options[this.selectedIndex].value, $order_id)'>
+                                        <select name='status' onChange='changeStatus(this.options[this.selectedIndex].value, $order_id, \"$cust_email\", \"$cust_name\")'>
                                             <option value='0'>Pending</option>
                                             <option value='1'>Confirmed</option>
                                             <option value='2'>Packed</option>
@@ -356,20 +356,55 @@ $total_orders = mysqli_num_rows($result);
                         }
                     ?>
                 </table>
+                <script src="https://smtpjs.com/v3/smtp.js"></script>
                 <script>
-                    function changeStatus(status_id, n){
+                    function changeStatus(status_id, n, email, name){
                         var xhttp;
                         xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
                             if (this.readyState == 4 && this.status == 200) {
                                 if(this.responseText == "OK"){
-                                    window.location.reload();
+                                    alert("Updated! Notifying customer via mail...");
+                                    updateCustomerWithMail(n, email, name);
                                 }
                             }
                         };
                         xhttp.open("POST", "functions/change_order_status.php", true);
                         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         xhttp.send("order_id=" + n + "&status_id=" + status_id);
+                    }
+                    function updateCustomerWithMail(n, email, name){
+                        var msg_body = '';
+                        if(n = 1){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been confirmed. <br/><br/> Thank you for shopping with us.';
+                        }else if(n = 2){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been packed. <br/><br/> Thank you for shopping with us.';
+                        }else if(n = 3){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been shipped. <br/><br/> Thank you for shopping with us.';
+                        }else if(n = 4){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been delivered. <br/><br/> Thank you for shopping with us.';
+                        }else if(n = 5){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been cancelled. <br/><br/> Continue shopping with us.';
+                        }else if(n = 6){
+                            msg_body = 'Dear ' + name + ', <br/><br/> We have received the consignment back. <br/><br/> Continue shopping with us.';
+                        }else if(n = 7){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been replaced. <br/><br/> Thank you for shopping with us.';
+                        }else if(n = 8){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been lost while in shipment. We are sorry for the inconvenience. <br/><br/> Please contact our customer care for further assistance.';
+                        }else if(n = 9){
+                            msg_body = 'Dear ' + name + ', <br/><br/> Your order has been rejected. Please contact our customer care for further assistance. <br/><br/> Continue shopping with us.';
+                        }
+                        Email.send({
+                            Host : "smtp.gmail.com",
+                            Username : "times.mailing.service@gmail.com",
+                            Password : "mmszmnxcpejqhzjd",
+                            To : email,
+                            From : "times.mailing.service@gmail.com",
+                            Subject : "Your order update from Times International",
+                            Body : msg_body
+                        }).then(
+                        message => window.location.reload()
+                        );
                     }
                 </script>
                 <div class="pagination">

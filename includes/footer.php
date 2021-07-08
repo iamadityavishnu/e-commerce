@@ -4,8 +4,21 @@
             <h4>Your account</h4>
             <div class="footer-column-list">
                 <ul>
-                    <li>Log in</li>
-                    <li>Sign-up</li>
+                    <?php
+                    if(!isset($_SESSION['email'])){
+                        echo "
+                            <a href='login.php'><li>Log in</li></a>
+                            <a href='signup.php'><li>Sign up</li></a>
+                            <a href='cart.php'><li>Cart</li></a>
+                        ";
+                    }else{
+                        echo "
+                            <a href='my_account.php'><li>My account</li></a>
+                            <a href='my_account.php?my_orders'><li>Your orders</li></a>
+                            <a href='cart.php'><li>Cart</li></a>
+                        ";
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -13,11 +26,13 @@
             <h4>Quick links</h4>
             <div class="footer-column-list">
                 <ul>
-                    <li>Categories</li>
-                    <li>My account</li>
-                    <li>Cart</li>
-                    <li>Privacy policy</li>
-                    <li>Delivery policy</li>
+                    <a href="categories.php"><li>Categories</li></a>
+                    <a href="privacy_policy.php"><li>Privacy policy</li></a>
+                    <a href="delivery_policy.php"><li>Delivery policy</li></a>
+                    <a href="return_and_cancellation_policy.php"><li>Return policy</li></a>
+                    <a href="return_and_cancellation_policy.php"><li>Cancellation policy</li></a>
+                    <a href="contact_us.php"><li>Contact us</li></a>
+                    <a href="about_us.php"><li>About us</li></a>
                 </ul>
             </div>
         </div>
@@ -26,6 +41,7 @@
             <div class="footer-column-list">
                 <ul>
                     <li>TIMES INTERNATIONAL PTY LTD</li>
+                    <li>Queensland</li>
                     <li>Australia</li>
                 </ul>
             </div>
@@ -42,10 +58,15 @@
     </div>
     <div class="footer-credits">
         <div>
+            <a href=""><img style="margin: 10px" src="images/instagram.png" alt=""></a>
+            <a href=""><img style="margin: 10px" src="images/facebook.png" alt=""></a>
+            <a href=""><img style="margin: 10px" src="images/twitter.png" alt=""></a>
+        </div>
+        <div>
             <p>Copyright &copy; 2021 Times International</p>
         </div>
         <div class="payment-stripe">
-            <img src="" alt="" />
+            <img src="images/paypal-logo.png" alt="" height="20px"/>
         </div>
     </div>
 </footer>

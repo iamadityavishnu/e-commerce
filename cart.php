@@ -152,7 +152,10 @@ session_start();
                     <?php
                     if(!isset($_SESSION['email'])){
                         if(isset($_COOKIE['cart'])){
+                            $guest_cart_count = count(unserialize($_COOKIE['cart']));
                             echo "<h2>Cart (" .count(unserialize($_COOKIE['cart'])). ") items</h2>";
+                        }else{
+                            echo "<h2>Your cart is empty</h2>";
                         }
                     }
                     ?>
@@ -163,6 +166,7 @@ session_start();
                     if(isset($_COOKIE['cart'])){
                         $cart = unserialize($_COOKIE['cart']);
                         $total_price = 0;
+                        $id_index = 0;
                         foreach ($cart as $key => $value){
                             $qty = $value['qty'];
                             $pid = $value['pid'];
@@ -194,6 +198,14 @@ session_start();
                             }else{
                                 echo "ERROR";
                             }
+
+                            if($weight >= 1000){
+                                $wt = number_format((float)($weight / 1000), 3);
+                                $wt_unit = "Kg";
+                            }else{
+                                $wt = $weight;
+                                $wt_unit = "Gms";
+                            }
                             
                             $total_price = $total_price + ($price*$qty);
 
@@ -204,13 +216,13 @@ session_start();
                                     <div class='quantity'>
                                         <button
                                             class='btn-tiny'
-                                            onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) - 1;
-                                            if(parseInt(document.getElementById('quantity').value) < 1){document.getElementById('quantity').value = 1;}'
+                                            onclick='document.getElementById(\"quantity$id_index\").value = parseInt(document.getElementById(\"quantity$id_index\").value) - 1;
+                                            if(parseInt(document.getElementById(\"quantity$id_index\").value) < 1){document.getElementById(\"quantity$id_index\").value = 1;}'
                                         >
                                             —
                                         </button>
                                         <input
-                                            id='quantity'
+                                            id='quantity$id_index'
                                             type='number'
                                             name='quantity'
                                             value='$qty'
@@ -218,7 +230,7 @@ session_start();
                                         />
                                         <button
                                             class='btn-tiny'
-                                            onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1;'
+                                            onclick='document.getElementById(\"quantity$id_index\").value = parseInt(document.getElementById(\"quantity$id_index\").value) + 1;'
                                         >
                                             +
                                         </button>
@@ -228,15 +240,16 @@ session_start();
                                     <div class='product-info'>
                                         <h3>$p_title</h3>
                                         <p>Price: $$price</p>
-                                        <p>Weight: $weight</p>
+                                        <p>Weight: $wt $wt_unit</p>
                                     </div>
                                     <div class='remove-btn'>
+                                        <button style='color: green' onclick='updateQty($key, document.getElementById(\"quantity$id_index\").value)'>Update</button>
                                         <button onclick='removeItem($key)'>Remove</button>
                                     </div>
                                 </div>
                             </div>
                             ";
-
+                            $id_index++;
                         }
                     }
                 }else{
@@ -248,8 +261,10 @@ session_start();
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $data = $result->fetch_all(MYSQLI_ASSOC);
+                    $user_cart_count = count($data);
 
                     $total_price = 0;
+                    $id_index = 0;
 
                     echo "
                     <div class='section-header'>
@@ -291,6 +306,14 @@ session_start();
                             echo "ERROR";
                         }
 
+                        if($weight >= 1000){
+                            $wt = number_format((float)($weight / 1000), 3);
+                            $wt_unit = "Kg";
+                        }else{
+                            $wt = $weight;
+                            $wt_unit = "Gms";
+                        }
+
                         $total_price = $total_price + ($price*$qty);
 
                         echo "
@@ -300,13 +323,13 @@ session_start();
                                 <div class='quantity'>
                                     <button
                                         class='btn-tiny'
-                                        onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) - 1;
-                                        if(parseInt(document.getElementById('quantity').value) < 1){document.getElementById('quantity').value = 1;}'
+                                        onclick='document.getElementById(\"quantity$id_index\").value = parseInt(document.getElementById(\"quantity$id_index\").value) - 1;
+                                        if(parseInt(document.getElementById(\"quantity$id_index\").value) < 1){document.getElementById(\"quantity$id_index\").value = 1;}'
                                     >
                                         —
                                     </button>
                                     <input
-                                        id='quantity'
+                                        id='quantity$id_index'
                                         type='number'
                                         name='quantity'
                                         value='$qty'
@@ -314,7 +337,7 @@ session_start();
                                     />
                                     <button
                                         class='btn-tiny'
-                                        onclick='document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1;'
+                                        onclick='document.getElementById(\"quantity$id_index\").value = parseInt(document.getElementById(\"quantity$id_index\").value) + 1;'
                                     >
                                         +
                                     </button>
@@ -324,14 +347,16 @@ session_start();
                                 <div class='product-info'>
                                     <h3>$p_title</h3>
                                     <p>Price: $$price</p>
-                                    <p>Weight: $weight gms</p>
+                                    <p>Weight: $wt $wt_unit</p>
                                 </div>
                                 <div class='remove-btn'>
+                                    <button style='color: green' onclick='updateQty($slno, document.getElementById(\"quantity$id_index\").value)'>Update</button>
                                     <button onclick='removeItem($slno)'>Remove</button>
                                 </div>
                             </div>
                         </div>
                         ";
+                        $id_index++;
                     }
 
 
@@ -346,7 +371,6 @@ session_start();
                         xhttp.onreadystatechange = function () {
                             if (this.readyState == 4 && this.status == 200) {
                                 if(this.responseText == "OK"){
-                                    var item = document.getElementsByClassName("each-item");
                                     location.reload();
                                 }
                             }
@@ -354,10 +378,39 @@ session_start();
                         xhttp.open("GET", "includes/functions/updatecart.php?index=" + n, true);
                         xhttp.send();
                     }
+                    function updateQty(n, qty){
+                        var xhttp;
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                if(this.responseText == "OK"){
+                                    location.reload();
+                                }
+                            }
+                        };
+                        xhttp.open("GET", "includes/functions/updatecart.php?index=" + n + "&qty=" + qty, true);
+                        xhttp.send();
+                    }
                 </script>
                 
                 <div class="place-order">
-                    <a href="confirmation.php"><input type="submit" name="place-order" value="Place Order"></a>
+                    <?php
+                    if(isset($guest_cart_count)){
+                        if($guest_cart_count == 0){
+                            echo "<a href='search_result.php?search_keyword='><input type='button' name='place-order' value='Start Shopping'></a>";
+                        }else{
+                            echo "<a href='confirmation.php'><input type='submit' name='place-order' value='Place Order'></a>";
+                        }
+                    }else if(isset($user_cart_count)){
+                        if($user_cart_count == 0){
+                            echo "<a href='search_result.php?search_keyword='><input type='submit' name='place-order' value='Start shopping'></a>";
+                        }else{
+                            echo "<a href='confirmation.php'><input type='submit' name='place-order' value='Place Order'></a>";
+                        }
+                    }else{
+                        echo "<a href='search_result.php?search_keyword='><input type='submit' name='place-order' value='Start shopping'></a>";
+                    }
+                    ?>
                 </div>
             </div>
             <div class="right-section">
@@ -368,14 +421,14 @@ session_start();
                     <div class="">
                         <p>Price (all items)</p>
                         <!-- <p>Discount</p> -->
-                        <p>Shipping</p><br>
+                        <p>Shipping charge</p><br>
                         <b style="font-size: 1.2em">Total</b>
                     </div>
                     <div class="" style="text-align: right">
-                        <b>$<?php echo $total_price; ?></b>
+                        <b><?php if(isset($total_price)){ echo "$",$total_price; }else{echo "$0";}?></b>
                         <!-- <p>$0</p> -->
                         <p>$0</p><br>
-                        <b style="font-size: 1.2em">$<?php echo $total_price; ?></b>
+                        <b style="font-size: 1.2em"><?php if(isset($total_price)){ echo "$",$total_price; }else{echo "$0";}?></b>
                     </div>
                 </div>
             </div>
