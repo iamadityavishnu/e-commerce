@@ -397,7 +397,7 @@ session_start();
                     <?php
                     if(isset($guest_cart_count)){
                         if($guest_cart_count == 0){
-                            echo "<a href='search_result.php?search_keyword='><input type='button' name='place-order' value='Start Shopping'></a>";
+                            echo "<a href='search_result.php?search_keyword='><input type='submit' name='place-order' value='Start Shopping'></a>";
                         }else{
                             echo "<a href='confirmation.php'><input type='submit' name='place-order' value='Place Order'></a>";
                         }

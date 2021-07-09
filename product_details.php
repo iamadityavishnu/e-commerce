@@ -189,6 +189,7 @@ $p_img_3 = $product['p_img_3'];
                                 type="submit"
                                 value="Buy now"
                                 class="btn-buy-now"
+                                onclick="buyNow()"
                             />
                         </div>
 
@@ -207,6 +208,25 @@ $p_img_3 = $product['p_img_3'];
                                         if(this.responseText == "OK"){
                                             document.getElementById("btn-atc").value = "Added to cart";
                                             document.getElementById("btn-atc").style.background = "#27b33e";
+                                        }
+                                    }
+                                };
+                                xhttp.open("GET", "includes/functions/addtocart.php?p_id=" + p_id + "&qty=" + quantity + "&weight=" + weight, true);
+                                xhttp.send();
+                            }
+                            function buyNow(){
+                                $(':input[type="submit"]').attr("disabled", "disabled");
+
+                                var quantity = document.getElementById("quantity").value;
+                                var weight = document.getElementById("weight").value;
+                                var p_id = <?php echo $p_id; ?>;
+
+                                var xhttp;
+                                xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        if(this.responseText == "OK"){
+                                            window.open("confirmation.php","_self");
                                         }
                                     }
                                 };

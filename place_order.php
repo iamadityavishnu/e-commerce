@@ -126,18 +126,18 @@ if(isset($_SESSION['email'])){
             $cust_id = 0;
 
             $stmt->bind_param("iissiiiissssssssi", $cust_id, $pid, $p_title, $p_img, $total_price, $invoice_no, $qty, $weight, $date, $cust_name, $cust_email, $cust_phone, $add_1, $add_2, $state, $post_code, $order_status);
-            if($stmt->execute()){
-                $cart = unserialize($_COOKIE['cart']);
-                unset($cart[$key]);
-                setcookie('cart', serialize($cart),[
-                    'expires' => time() + 86400,
-                    'path' => '/',
-                    'secure' => true,
-                    'httponly' => true,
-                    'samesite' => 'None',
-                ]);
-            }
+            $stmt->execute();
         }
+        // $cart = unserialize($_COOKIE['cart']);
+        // unset($cart[$key]);
+        $cart = 0;
+        setcookie('cart', $cart,[
+            'expires' => time() - 86400,
+            'path' => '/',
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'None',
+        ]);
         echo "<script>alert('Order placed')</script>";
         echo "<script>window.open('index.php','_self')</script>";
     }
